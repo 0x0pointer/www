@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NullPointer — Holistic Application Security</title>
+<meta name="description" content="Open-source offensive & defensive application security tooling. AI-powered pentesting, LLM guardrails, and structured assessment methodologies.">
+<link rel="icon" type="image/png" href="design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy: #2d2b55;
+  --navy-deep: #1a1840;
+  --navy-dark: #13112e;
+  --green: #5bf29b;
+  --green-dim: rgba(91, 242, 155, 0.15);
+  --green-glow: rgba(91, 242, 155, 0.4);
+  --purple: #7b78ff;
+  --purple-dim: rgba(123, 120, 255, 0.15);
+  --purple-glow: rgba(123, 120, 255, 0.4);
+  --white: #e8e6f0;
+  --white-bright: #ffffff;
+  --muted: #9b98b8;
+  --border: rgba(123, 120, 255, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) var(--navy-dark);
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--navy-dark);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scanline background texture ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(91, 242, 155, 0.008) 2px,
+    rgba(91, 242, 155, 0.008) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Navigation ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(19, 17, 46, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+nav.scrolled {
+  padding: 0.6rem 2rem;
+  background: rgba(19, 17, 46, 0.95);
+}
+
+.nav-logo {
+  height: 32px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+nav.scrolled .nav-logo {
+  opacity: 1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--green);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--green); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+/* ── Shared ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  padding: 8rem 0;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--green);
+}
+
+.section-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--white-bright);
+}
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Hero ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 5rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-bg canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Radial glow behind logo */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(91, 242, 155, 0.06) 0%, rgba(123, 120, 255, 0.04) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero-logo {
+  width: min(400px, 70vw);
+  margin-bottom: 2.5rem;
+  filter: drop-shadow(0 0 40px rgba(91, 242, 155, 0.15));
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero-desc {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--navy-dark);
+}
+
+.btn-primary:hover {
+  background: var(--white-bright);
+  box-shadow: 0 0 30px rgba(91, 242, 155, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--purple);
+  color: var(--purple);
+  transform: translateY(-2px);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeUp 1s 1.2s forwards;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--purple), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ── Data stream divider ── */
+.stream-divider {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stream-divider .line {
+  position: absolute;
+  height: 2px;
+  border-radius: 1px;
+  animation: streamAcross linear infinite;
+}
+
+@keyframes streamAcross {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(calc(100vw + 100%)); }
+}
+
+/* ── What We Do ── */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.pillar-card {
+  background: linear-gradient(135deg, rgba(45, 43, 85, 0.6), rgba(26, 24, 64, 0.8));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), var(--purple), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(123, 120, 255, 0.25);
+}
+
+.pillar-card:hover::before { opacity: 1; }
+
+.pillar-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1.5rem;
+}
+
+.pillar-card h3 {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--white-bright);
+}
+
+.pillar-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ── Projects ── */
+#projects {
+  background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-deep) 50%, var(--navy-dark) 100%);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+.project-card {
+  background: rgba(45, 43, 85, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(123, 120, 255, 0.3);
+  background: rgba(45, 43, 85, 0.6);
+}
+
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.project-name {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white-bright);
+}
+
+.project-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.badge-offensive {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(91, 242, 155, 0.2);
+}
+
+.badge-defensive {
+  background: var(--purple-dim);
+  color: var(--purple);
+  border: 1px solid rgba(123, 120, 255, 0.2);
+}
+
+.badge-methodology {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.project-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tech-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: var(--muted);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--purple);
+  text-decoration: none;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+
+.project-link:hover {
+  color: var(--green);
+  gap: 0.75rem;
+}
+
+.project-link svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover svg {
+  transform: translateX(2px);
+}
+
+/* ── Pipeline / How it fits together ── */
+#pipeline {
+  overflow: hidden;
+}
+
+.pipeline-wrapper {
+  margin-top: 4rem;
+  position: relative;
+}
+
+.pipeline-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 3rem 0;
+  overflow-x: auto;
+}
+
+.pipeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+.pipeline-node-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.pipeline-node:hover .pipeline-node-icon {
+  transform: scale(1.1);
+}
+
+.pipeline-node-icon.node-oracle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.pipeline-node-icon.node-agent {
+  background: var(--green-dim);
+  border: 2px solid rgba(91, 242, 155, 0.25);
+}
+
+.pipeline-node-icon.node-seraph {
+  background: var(--purple-dim);
+  border: 2px solid rgba(123, 120, 255, 0.25);
+}
+
+.pipeline-node-icon.node-skills {
+  background: rgba(91, 242, 155, 0.08);
+  border: 2px solid rgba(91, 242, 155, 0.15);
+}
+
+.pipeline-node-label {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--white-bright);
+  margin-bottom: 0.35rem;
+}
+
+.pipeline-node-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  max-width: 130px;
+}
+
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.pipeline-arrow svg {
+  width: 60px;
+  height: 20px;
+}
+
+.pipeline-cycle-label {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pipeline-cycle-label span {
+  color: var(--green);
+}
+
+/* ── Community ── */
+#community {
+  text-align: center;
+}
+
+.community-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.community-content p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.community-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.community-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.75rem;
+  background: rgba(45, 43, 85, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--white);
+  transition: all 0.3s ease;
+}
+
+.community-card:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(91, 242, 155, 0.08);
+}
+
+.community-card svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.community-card span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-logo {
+  height: 28px;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Special Thanks ── */
+#thanks {
+  padding: 5rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.thanks-content {
+  text-align: center;
+}
+
+.thanks-content p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thanks-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.thanks-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+  text-decoration: none;
+}
+
+.thanks-logo:hover {
+  opacity: 0.85;
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pipeline-visual {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pipeline-arrow {
+    transform: rotate(90deg);
+    margin-bottom: 0;
+    padding: 0.25rem 0;
+  }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 0.75rem 1rem; }
+
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(19, 17, 46, 0.97);
+    padding: 1.5rem 2rem;
+    gap: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-toggle { display: block; }
+  .nav-logo { opacity: 1 !important; height: 24px; }
+
+  .container { padding: 0 1.25rem; }
+  section { padding: 5rem 0; }
+
+  .hero-logo { width: 260px; }
+
+  .project-header { flex-direction: column; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <img src="design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo">
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#pipeline">Ecosystem</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="https://github.com/0x0pointer" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="hero-bg">
+    <canvas id="heroCanvas"></canvas>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <img src="design/FullLogo_Transparent.png" alt="NullPointer" class="hero-logo">
+    <p class="hero-tagline">Holistic Application Security &mdash; Offensive &amp; Defensive Open Source Tooling</p>
+    <p class="hero-desc">
+      A complete open-source ecosystem for application security. From AI-powered pentesting to LLM guardrails and structured assessment methodologies.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View on GitHub
+      </a>
+      <a href="#projects" class="btn btn-ghost">Explore Projects</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── Stream divider ── -->
+<div class="stream-divider" id="divider1"></div>
+
+<!-- ── What We Do ── -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Full-spectrum application<br>security, open source.</h2>
+    </div>
+
+    <div class="pillars-grid">
+      <!-- Offensive -->
+      <div class="pillar-card reveal reveal-delay-1">
+        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
+          <rect x="8" y="12" width="48" height="36" rx="3" stroke="#5bf29b" stroke-width="1.5" opacity="0.3"/>
+          <rect x="12" y="16" width="40" height="28" rx="2" stroke="#5bf29b" stroke-width="1.5"/>
+          <text x="16" y="28" font-family="monospace" font-size="7" fill="#5bf29b" opacity="0.8">$ nmap -sV</text>
+          <text x="16" y="37" font-family="monospace" font-size="6" fill="#7b78ff" opacity="0.6">scanning...</text>
+          <line x1="14" y="52" x2="50" y2="52" stroke="#5bf29b" stroke-width="1" opacity="0.15"/>
+          <circle cx="52" cy="20" r="2" fill="#5bf29b" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <h3>Offensive Security</h3>
+        <p>AI-driven penetration testing, automated vulnerability scanning, and exploit validation. Let intelligent agents find what manual testing misses.</p>
+      </div>
+
+      <!-- Defensive -->
+      <div class="pillar-card reveal reveal-delay-2">
+        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M32 6 L54 16 V34 C54 46 32 58 32 58 C32 58 10 46 10 34 V16 L32 6Z" stroke="#7b78ff" stroke-width="1.5" fill="none"/>
+          <path d="M32 14 L46 21 V33 C46 41 32 50 32 50 C32 50 18 41 18 33 V21 L32 14Z" stroke="#7b78ff" stroke-width="1" opacity="0.3"/>
+          <line x1="22" y1="30" x2="30" y2="38" stroke="#5bf29b" stroke-width="2" stroke-linecap="round"/>
+          <line x1="42" y1="24" x2="30" y2="38" stroke="#5bf29b" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="48" cy="12" r="3" stroke="#5bf29b" stroke-width="1" opacity="0.4">
+            <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <h3>Defensive Security</h3>
+        <p>LLM guardrails, prompt injection protection, and runtime monitoring. Intercept threats before they reach your models and applications.</p>
+      </div>
+
+      <!-- Methodology -->
+      <div class="pillar-card reveal reveal-delay-3">
+        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
+          <rect x="14" y="6" width="36" height="48" rx="2" stroke="#fff" stroke-width="1.5" opacity="0.3"/>
+          <rect x="18" y="10" width="28" height="40" rx="1" stroke="#fff" stroke-width="1" opacity="0.15"/>
+          <line x1="22" y1="18" x2="42" y2="18" stroke="#7b78ff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="22" y1="24" x2="38" y2="24" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          <line x1="22" y1="29" x2="40" y2="29" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+          <line x1="22" y1="34" x2="35" y2="34" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+          <rect x="22" y="39" width="8" height="6" rx="1" stroke="#7b78ff" stroke-width="1" opacity="0.5"/>
+          <rect x="33" y="39" width="8" height="6" rx="1" stroke="#7b78ff" stroke-width="1" opacity="0.5"/>
+          <circle cx="44" cy="10" r="6" fill="#5bf29b" opacity="0.1" stroke="#5bf29b" stroke-width="1" opacity="0.3"/>
+          <text x="42" y="13" font-family="monospace" font-size="8" fill="#5bf29b" text-anchor="middle">?</text>
+        </svg>
+        <h3>Methodology</h3>
+        <p>Structured assessment frameworks and community-driven knowledge. Repeatable, thorough security reviews built on proven standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stream divider ── -->
+<div class="stream-divider" id="divider2"></div>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Open Source Projects</p>
+      <h2 class="section-title">Built to break, built to protect.</h2>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Agent-Smith -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-header">
+          <span class="project-name">Agent-Smith</span>
+          <span class="project-badge badge-offensive">Offensive</span>
+        </div>
+        <p class="project-subtitle">AI-Driven Penetration Testing Agent</p>
+        <p class="project-desc">Claude orchestrates security tools autonomously&mdash;deciding what to run, in what order, and when to stop. Containerized tooling with a real-time dashboard and 50+ integrated security utilities.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">MCP</span>
+          <span class="tech-tag">Kali</span>
+        </div>
+        <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="project-link">
+          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Seraph -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-header">
+          <span class="project-name">Seraph</span>
+          <span class="project-badge badge-defensive">Defensive</span>
+        </div>
+        <p class="project-subtitle">LLM Guardrail Proxy</p>
+        <p class="project-desc">Intercepts and scans all LLM communications for prompt injection, toxicity, and leaked secrets. Works with any provider&mdash;OpenAI, Anthropic, Azure, Ollama. Three integration modes: Direct Scan, Gateway Hook, Transparent Proxy.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">llm-guard</span>
+        </div>
+        <a href="https://github.com/0x0pointer/seraph" target="_blank" rel="noopener" class="project-link">
+          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Oracle -->
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-header">
+          <span class="project-name">Oracle</span>
+          <span class="project-badge badge-methodology">Methodology</span>
+        </div>
+        <p class="project-subtitle">Whitebox Security Assessment Methodology</p>
+        <p class="project-desc">A structured, step-by-step guide for comprehensive application security assessments. Built for security champions and AppSec engineers embedding security into the development cycle.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Jekyll</span>
+          <span class="tech-tag">Markdown</span>
+        </div>
+        <a href="https://github.com/0x0pointer/oracle" target="_blank" rel="noopener" class="project-link">
+          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Skills -->
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-header">
+          <span class="project-name">Skills</span>
+          <span class="project-badge badge-offensive">Knowledge</span>
+        </div>
+        <p class="project-subtitle">Security Skills &amp; Knowledge Base</p>
+        <p class="project-desc">Curated collection of pentesting skills covering AI red teaming, container security, OSINT, threat modeling, network assessment, and more. Community-driven and open for contribution.</p>
+        <div class="project-tech">
+          <span class="tech-tag">AI Red Team</span>
+          <span class="tech-tag">OSINT</span>
+          <span class="tech-tag">K8s</span>
+          <span class="tech-tag">Threat Model</span>
+        </div>
+        <a href="https://github.com/0x0pointer/skills" target="_blank" rel="noopener" class="project-link">
+          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pipeline ── -->
+<section id="pipeline">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <p class="section-label" style="justify-content:center;">The Ecosystem</p>
+      <h2 class="section-title">A continuous security lifecycle.</h2>
+      <p style="color:var(--muted); max-width:560px; margin:0 auto; font-size:0.95rem; line-height:1.7;">Every tool feeds the next. Methodology informs testing, testing reveals what to defend, defense generates knowledge, and knowledge refines the methodology.</p>
+    </div>
+
+    <div class="pipeline-wrapper reveal reveal-delay-1">
+      <div class="pipeline-visual">
+        <!-- Oracle -->
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon node-oracle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16v16H4z" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+          </div>
+          <span class="pipeline-node-label">Oracle</span>
+          <span class="pipeline-node-sub">Define methodology</span>
+        </div>
+
+        <div class="pipeline-arrow">
+          <svg viewBox="0 0 60 20" fill="none">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#5bf29b" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+            <polyline points="44,5 52,10 44,15" stroke="#5bf29b" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Agent-Smith -->
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon node-agent">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="7" y1="8" x2="12" y2="8"/><line x1="7" y1="11" x2="15" y2="11"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span class="pipeline-node-label">Agent-Smith</span>
+          <span class="pipeline-node-sub">Attack &amp; discover</span>
+        </div>
+
+        <div class="pipeline-arrow">
+          <svg viewBox="0 0 60 20" fill="none">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#7b78ff" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+            <polyline points="44,5 52,10 44,15" stroke="#7b78ff" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Seraph -->
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon node-seraph">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7b78ff" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <span class="pipeline-node-label">Seraph</span>
+          <span class="pipeline-node-sub">Defend &amp; protect</span>
+        </div>
+
+        <div class="pipeline-arrow">
+          <svg viewBox="0 0 60 20" fill="none">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#5bf29b" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+            <polyline points="44,5 52,10 44,15" stroke="#5bf29b" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Skills -->
+        <div class="pipeline-node">
+          <div class="pipeline-node-icon node-skills">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="4" r="1.5"/><circle cx="20" cy="12" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4" cy="12" r="1.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><line x1="18.5" y1="12" x2="15" y2="12"/><line x1="12" y1="18.5" x2="12" y2="15"/><line x1="5.5" y1="12" x2="9" y2="12"/></svg>
+          </div>
+          <span class="pipeline-node-label">Skills</span>
+          <span class="pipeline-node-sub">Learn &amp; share</span>
+        </div>
+      </div>
+
+      <p class="pipeline-cycle-label">
+        <span>&larr;</span> Continuous cycle &mdash; knowledge feeds back into methodology <span>&rarr;</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Community ── -->
+<section id="community">
+  <div class="container">
+    <div class="community-content reveal">
+      <p class="section-label" style="justify-content:center;">Community</p>
+      <h2 class="section-title">Build with us.</h2>
+      <p>NullPointer is fully open source and community-driven. Whether you're a pentester, security engineer, or developer&mdash;there's a place for you. Contribute code, share knowledge, or just hang out.</p>
+      <div class="community-links">
+        <a href="https://discord.gg/Pg6gBbr2Vj" target="_blank" rel="noopener" class="community-card">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          <span>Join Discord</span>
+        </a>
+        <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="community-card">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub Org</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Special Thanks ── -->
+<section id="thanks">
+  <div class="container">
+    <div class="thanks-content reveal">
+      <p class="section-label" style="justify-content:center;">Special Thanks</p>
+      <h2 class="section-title">Made possible by</h2>
+      <p>We are grateful to the organizations that support and enable this open-source initiative.</p>
+      <div class="thanks-logos">
+        <!-- ING -->
+        <a href="https://www.ing.com" target="_blank" rel="noopener" class="thanks-logo" title="ING">
+          <svg width="120" height="48" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="4" width="118" height="40" rx="6" fill="#FF6200" opacity="0.9"/>
+            <text x="60" y="31" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="700" font-size="26" fill="#fff" letter-spacing="2">ING</text>
+          </svg>
+        </a>
+        <!-- Nedap -->
+        <a href="https://www.nedap.com" target="_blank" rel="noopener" class="thanks-logo" title="Nedap">
+          <svg width="140" height="48" viewBox="0 0 140 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="4" width="138" height="40" rx="6" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.6"/>
+            <text x="70" y="31" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="20" fill="#fff" letter-spacing="3">NEDAP</text>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+// ── Navigation scroll effect ──
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+// Close mobile nav on link click
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// ── Reveal on scroll ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => revealObserver.observe(el));
+
+// ── Data stream dividers ──
+function createStreams(container) {
+  const colors = ['#5bf29b', '#7b78ff', '#5bf29b', '#7b78ff'];
+  for (let i = 0; i < 6; i++) {
+    const line = document.createElement('div');
+    line.className = 'line';
+    const w = 40 + Math.random() * 120;
+    const top = 8 + Math.random() * 40;
+    const dur = 3 + Math.random() * 4;
+    const delay = Math.random() * 5;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    line.style.cssText = `
+      width: ${w}px;
+      top: ${top}px;
+      background: ${color};
+      opacity: ${0.15 + Math.random() * 0.35};
+      animation-duration: ${dur}s;
+      animation-delay: ${delay}s;
+      box-shadow: 0 0 8px ${color}40;
+    `;
+    container.appendChild(line);
+  }
+}
+
+document.querySelectorAll('.stream-divider').forEach(createStreams);
+
+// ── Hero canvas: network mesh ──
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animFrame;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function createParticles() {
+  particles = [];
+  const count = Math.min(60, Math.floor((canvas.width * canvas.height) / 18000));
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: 1 + Math.random() * 1.5,
+      color: Math.random() > 0.5 ? '#5bf29b' : '#7b78ff',
+      alpha: 0.15 + Math.random() * 0.35
+    });
+  }
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        const alpha = (1 - dist / 150) * 0.06;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(123, 120, 255, ${alpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw & update particles
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = p.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  });
+
+  animFrame = requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+createParticles();
+drawParticles();
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  createParticles();
+});
+
+// Pause canvas animation when not visible
+const heroObserver = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting) {
+    if (!animFrame) drawParticles();
+  } else {
+    cancelAnimationFrame(animFrame);
+    animFrame = null;
+  }
+}, { threshold: 0 });
+
+heroObserver.observe(document.getElementById('hero'));
+</script>
+</body>
+</html>

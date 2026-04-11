@@ -148,7 +148,7 @@ nav.scrolled .nav-logo {
 }
 
 section {
-  padding: 8rem 0;
+  padding: 3rem 0;
   position: relative;
 }
 
@@ -331,7 +331,7 @@ section {
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 0rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -425,12 +425,33 @@ section {
   margin-bottom: 1.5rem;
 }
 
+.pillar-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.65rem;
+  display: block;
+}
+
+.pillar-card:nth-child(2) .pillar-eyebrow { color: var(--purple); }
+.pillar-card:nth-child(3) .pillar-eyebrow { color: var(--white-soft); }
+
 .pillar-card h3 {
   font-family: 'Chakra Petch', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.9rem;
   color: var(--white-bright);
+  letter-spacing: -0.005em;
+}
+
+.pillar-card p strong {
+  color: var(--white-bright);
+  font-weight: 600;
 }
 
 .pillar-card p {
@@ -571,6 +592,265 @@ section {
 
 .project-link:hover svg {
   transform: translateX(2px);
+}
+
+.section-subtitle {
+  max-width: 670px;
+  margin: 1rem auto 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* ── Featured project (hero row) ── */
+.project-feature {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin: 4rem 0 2.5rem;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(45, 43, 85, 0.55) 0%, rgba(19, 17, 46, 0.4) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-feature::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--green) 25%, var(--purple) 75%, transparent 100%);
+  opacity: 0.7;
+}
+
+.project-feature-tagrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.project-feature-kind {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-feature-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
+  font-weight: 700;
+  color: var(--white-bright);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.project-feature-tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--green);
+  margin-bottom: 1.1rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--green);
+  letter-spacing: 0.01em;
+}
+
+.project-feature-lede {
+  color: var(--white-soft);
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.project-feature-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.project-feature-bullets li {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  padding-left: 1.4rem;
+  position: relative;
+}
+
+.project-feature-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--green);
+  font-size: 0.85rem;
+}
+
+.project-feature-bullets strong {
+  color: var(--white-bright);
+  font-weight: 600;
+}
+
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy-deep);
+  background: var(--green);
+  padding: 0.85rem 1.4rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.project-cta:hover {
+  background: var(--white-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(91, 242, 155, 0.2);
+}
+
+.project-cta svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Demo viewer (tabbed GIFs) ── */
+.project-feature-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.demo-tab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-tab:hover {
+  color: var(--white-soft);
+  border-color: rgba(91, 242, 155, 0.3);
+}
+
+.demo-tab.active {
+  background: var(--green-dim);
+  color: var(--green);
+  border-color: rgba(91, 242, 155, 0.4);
+}
+
+.demo-screen {
+  position: relative;
+  background: rgba(10, 9, 26, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(123, 120, 255, 0.06);
+}
+
+.demo-screen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--border);
+  z-index: 2;
+}
+
+.demo-screen::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 3;
+}
+
+.demo-gif {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 28px);
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.demo-gif.active {
+  opacity: 1;
+}
+
+/* ── Enhanced secondary cards ── */
+.project-card-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--white-bright);
+  line-height: 1.25;
+  margin-bottom: 0.9rem;
+  letter-spacing: -0.005em;
+}
+
+.project-card-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.project-card-bullets li {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.project-card-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--purple);
+  font-size: 0.8rem;
 }
 
 /* ── Pipeline / How it fits together ── */
@@ -807,6 +1087,16 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+  .project-feature {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.75rem;
+  }
+
+  .project-feature-demo {
+    order: -1;
+  }
+
   .pipeline-visual {
     flex-direction: column;
     gap: 0;
@@ -840,7 +1130,7 @@ footer p {
   .nav-logo { opacity: 1 !important; height: 24px; }
 
   .container { padding: 0 1.25rem; }
-  section { padding: 5rem 0; }
+  section { padding: 2rem 0; }
 
   .hero-logo { width: 260px; }
 
@@ -915,8 +1205,9 @@ footer p {
             <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
           </circle>
         </svg>
-        <h3>Offensive Security</h3>
-        <p>AI-driven penetration testing, automated vulnerability scanning, and exploit validation. Let intelligent agents find what manual testing misses.</p>
+        <span class="pillar-eyebrow">Offensive Security</span>
+        <h3>A pentest agent that actually thinks.</h3>
+        <p>Most AI &ldquo;pentesters&rdquo; are chatbots wrapped around a script library. <strong>Agent-Smith flips the model</strong>&mdash;skills teach the methodology, the LLM invents the attack. Self-chaining across 25+ disciplines: web, cloud, AD, AI red-team, white-box review. Nothing else in open source comes close.</p>
       </div>
 
       <!-- Defensive -->
@@ -931,8 +1222,9 @@ footer p {
             <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
           </circle>
         </svg>
-        <h3>Defensive Security</h3>
-        <p>LLM guardrails, prompt injection protection, and runtime monitoring. Intercept threats before they reach your models and applications.</p>
+        <span class="pillar-eyebrow">Defensive Security</span>
+        <h3>The LLM firewall built on semantic intent.</h3>
+        <p>Seraph isn&rsquo;t another blocklist. A two-tier proxy runs a <strong>semantic allow-list</strong> (NeMo + embeddings) that decides what users are even allowed to ask, then hands edge cases to an <strong>LLM-as-judge</strong>. A defense designed for prompts you haven&rsquo;t seen yet. Drop-in for OpenAI, Anthropic, Azure, Ollama&mdash;zero code changes.</p>
       </div>
 
       <!-- Methodology -->
@@ -949,8 +1241,9 @@ footer p {
           <circle cx="44" cy="10" r="6" fill="#5bf29b" opacity="0.1" stroke="#5bf29b" stroke-width="1" opacity="0.3"/>
           <text x="42" y="13" font-family="monospace" font-size="8" fill="#5bf29b" text-anchor="middle">?</text>
         </svg>
-        <h3>Methodology</h3>
-        <p>Structured assessment frameworks and community-driven knowledge. Repeatable, thorough security reviews built on proven standards.</p>
+        <span class="pillar-eyebrow">Methodology</span>
+        <h3>Skills as pattern teachings, not scripts.</h3>
+        <p>25+ chainable slash-command skills covering the full lifecycle&mdash;recon, exploit, defend, remediate. Aligned to <strong>OWASP ASVS 5.0, LLM Top 10, MITRE ATT&amp;CK, PASTA, STRIDE</strong>. Built by the community, pluggable into any AI agent.</p>
       </div>
     </div>
   </div>
@@ -962,75 +1255,100 @@ footer p {
 <!-- ── Projects ── -->
 <section id="projects">
   <div class="container">
-    <div class="reveal">
-      <p class="section-label">Open Source Projects</p>
-      <h2 class="section-title">Built to break, built to protect.</h2>
+    <div class="reveal" style="text-align:center;">
+      <p class="section-label" style="justify-content:center;">Open Source Arsenal</p>
+      <h2 class="section-title">Built to break. Built to protect.</h2>
+      <p class="section-subtitle">Three projects. One mission: security that moves at the speed of AI&mdash;so your defense does too.</p>
     </div>
 
-    <div class="projects-grid">
-      <!-- Agent-Smith -->
-      <div class="project-card reveal reveal-delay-1">
-        <div class="project-header">
-          <span class="project-name">Agent-Smith</span>
+    <!-- Featured: Agent-Smith -->
+    <div class="project-feature reveal">
+      <div class="project-feature-copy">
+        <div class="project-feature-tagrow">
           <span class="project-badge badge-offensive">Offensive</span>
+          <span class="project-feature-kind">AI Pentest Agent</span>
         </div>
-        <p class="project-subtitle">AI-Driven Penetration Testing Agent</p>
-        <p class="project-desc">Claude orchestrates security tools autonomously&mdash;deciding what to run, in what order, and when to stop. Containerized tooling with a real-time dashboard and 50+ integrated security utilities.</p>
+        <h3 class="project-feature-title">The AI that thinks like an attacker.</h3>
+        <p class="project-feature-tagline">The new way: skills as pattern teachings.</p>
+        <p class="project-feature-lede">Point it at a target. Get back a full pentest&mdash;findings, Burp-ready PoCs, code patches, GitHub issues, and CVE submission packages. Autonomously.</p>
+        <ul class="project-feature-bullets">
+          <li><strong>25+ specialized skills.</strong> Web, network, cloud, AD, AI red-team, white-box review, threat modeling&mdash;one brain, every attack surface.</li>
+          <li><strong>Self-chaining skills.</strong> Detects SQLi, pivots to exploitation, writes the PoC. No manual stitching&mdash;the LLM decides what to run next.</li>
+          <li><strong>Sandboxed by default.</strong> Every scanner runs in an ephemeral Docker container with hard cost, time, and call-count limits enforced server-side.</li>
+          <li><strong>Bring your own LLM.</strong> Claude, GPT, Gemini, Ollama&mdash;the methodology ships with the skill. The model does the thinking.</li>
+        </ul>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
           <span class="tech-tag">FastAPI</span>
           <span class="tech-tag">Docker</span>
           <span class="tech-tag">MCP</span>
           <span class="tech-tag">Kali</span>
+          <span class="tech-tag">Metasploit</span>
         </div>
-        <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="project-link">
-          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="project-cta">
+          Deploy Agent-Smith <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
 
+      <div class="project-feature-demo">
+        <div class="demo-tabs" role="tablist">
+          <button class="demo-tab active" data-demo="pen" type="button">Pentest</button>
+          <button class="demo-tab" data-demo="code" type="button">Code Review</button>
+          <button class="demo-tab" data-demo="ai" type="button">AI Red Team</button>
+          <button class="demo-tab" data-demo="fix" type="button">Auto-Fix</button>
+        </div>
+        <div class="demo-screen">
+          <img class="demo-gif active" data-demo-img="pen" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/pen-final.gif" alt="Agent-Smith autonomously pentesting a target" loading="lazy">
+          <img class="demo-gif" data-demo-img="code" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/code-final.gif" alt="Agent-Smith performing white-box source code review" loading="lazy">
+          <img class="demo-gif" data-demo-img="ai" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/ai-final.gif" alt="Agent-Smith AI red-teaming an LLM application" loading="lazy">
+          <img class="demo-gif" data-demo-img="fix" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/fix-final.gif" alt="Agent-Smith generating auto-remediation patches" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary: Seraph + Skills -->
+    <div class="projects-grid">
       <!-- Seraph -->
-      <div class="project-card reveal reveal-delay-2">
+      <div class="project-card reveal reveal-delay-1">
         <div class="project-header">
           <span class="project-name">Seraph</span>
           <span class="project-badge badge-defensive">Defensive</span>
         </div>
         <p class="project-subtitle">LLM Guardrail Proxy</p>
-        <p class="project-desc">Intercepts and scans all LLM communications for prompt injection, toxicity, and leaked secrets. Works with any provider&mdash;OpenAI, Anthropic, Azure, Ollama. Three integration modes: Direct Scan, Gateway Hook, Transparent Proxy.</p>
+        <h3 class="project-card-title">The firewall your LLM apps forgot they needed.</h3>
+        <p class="project-desc">A drop-in proxy that stops prompt injection, jailbreaks, and data leaks before they ever reach your model. Point your OpenAI or Anthropic SDK at Seraph and you're protected&mdash;zero code changes.</p>
+        <ul class="project-card-bullets">
+          <li>Two-tier defense: NeMo semantic allow-list + LLM-as-judge</li>
+          <li>Works with OpenAI, Anthropic, Azure, Ollama, vLLM</li>
+          <li>Single YAML config. Hot reload. Streaming support.</li>
+          <li>Deployable in minutes via Docker or pip</li>
+        </ul>
         <div class="project-tech">
           <span class="tech-tag">Python</span>
           <span class="tech-tag">FastAPI</span>
-          <span class="tech-tag">llm-guard</span>
+          <span class="tech-tag">NeMo Guardrails</span>
+          <span class="tech-tag">LangGraph</span>
         </div>
         <a href="https://github.com/0x0pointer/seraph" target="_blank" rel="noopener" class="project-link">
           View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
 
-      <!-- Oracle -->
-      <div class="project-card reveal reveal-delay-3">
-        <div class="project-header">
-          <span class="project-name">Oracle</span>
-          <span class="project-badge badge-methodology">Methodology</span>
-        </div>
-        <p class="project-subtitle">Whitebox Security Assessment Methodology</p>
-        <p class="project-desc">A structured, step-by-step guide for comprehensive application security assessments. Built for security champions and AppSec engineers embedding security into the development cycle.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Jekyll</span>
-          <span class="tech-tag">Markdown</span>
-        </div>
-        <a href="https://github.com/0x0pointer/oracle" target="_blank" rel="noopener" class="project-link">
-          View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-
       <!-- Skills -->
-      <div class="project-card reveal reveal-delay-4">
+      <div class="project-card reveal reveal-delay-2">
         <div class="project-header">
           <span class="project-name">Skills</span>
           <span class="project-badge badge-offensive">Knowledge</span>
         </div>
-        <p class="project-subtitle">Security Skills &amp; Knowledge Base</p>
-        <p class="project-desc">Curated collection of pentesting skills covering AI red teaming, container security, OSINT, threat modeling, network assessment, and more. Community-driven and open for contribution.</p>
+        <p class="project-subtitle">Slash-Command Security Library</p>
+        <h3 class="project-card-title">A red team in your Claude Code sidebar.</h3>
+        <p class="project-desc">25+ battle-tested slash-command skills covering the full offensive and defensive lifecycle&mdash;recon through remediation. OWASP-aligned, MITRE-mapped, community-driven. No install, no setup.</p>
+        <ul class="project-card-bullets">
+          <li>/pentester &rarr; /web-exploit &rarr; /remediate. The full loop.</li>
+          <li>ASVS 5.0, OWASP LLM Top 10, PASTA, STRIDE&mdash;built in</li>
+          <li>Skills chain themselves. One command, complete coverage.</li>
+          <li>MCP-ready. Works anywhere Claude Code does.</li>
+        </ul>
         <div class="project-tech">
           <span class="tech-tag">AI Red Team</span>
           <span class="tech-tag">OSINT</span>
@@ -1056,22 +1374,6 @@ footer p {
 
     <div class="pipeline-wrapper reveal reveal-delay-1">
       <div class="pipeline-visual">
-        <!-- Oracle -->
-        <div class="pipeline-node">
-          <div class="pipeline-node-icon node-oracle">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16v16H4z" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
-          </div>
-          <span class="pipeline-node-label">Oracle</span>
-          <span class="pipeline-node-sub">Define methodology</span>
-        </div>
-
-        <div class="pipeline-arrow">
-          <svg viewBox="0 0 60 20" fill="none">
-            <line x1="0" y1="10" x2="48" y2="10" stroke="#5bf29b" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
-            <polyline points="44,5 52,10 44,15" stroke="#5bf29b" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
-
         <!-- Skills -->
         <div class="pipeline-node">
           <div class="pipeline-node-icon node-skills node-skills">
@@ -1115,7 +1417,7 @@ footer p {
       </div>
 
       <p class="pipeline-cycle-label">
-        <span>&larr;</span> Continuous cycle &mdash; knowledge feeds back into methodology <span>&rarr;</span>
+        <span>&larr;</span> Learn. Break. Defend. Repeat. <span>&rarr;</span>
       </p>
     </div>
   </div>
@@ -1167,6 +1469,17 @@ navToggle.addEventListener('click', () => {
 // Close mobile nav on link click
 navLinks.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// ── Agent-Smith demo tabs ──
+document.querySelectorAll('.demo-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const key = tab.dataset.demo;
+    document.querySelectorAll('.demo-tab').forEach(t => t.classList.toggle('active', t === tab));
+    document.querySelectorAll('.demo-gif').forEach(img => {
+      img.classList.toggle('active', img.dataset.demoImg === key);
+    });
+  });
 });
 
 // ── Reveal on scroll ──

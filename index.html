@@ -871,6 +871,152 @@ section {
 .demo-code .c-dim    { color: rgba(255, 255, 255, 0.45); }
 .demo-code .c-label  { color: var(--white-bright); font-weight: 600; }
 
+/* ── Run Modes ── */
+.run-modes-wrap {
+  margin: 0 0 3rem;
+  padding: 3rem 2.5rem;
+  background: linear-gradient(135deg, rgba(19, 17, 46, 0.6) 0%, rgba(26, 24, 64, 0.5) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.run-modes-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(91, 242, 155, 0.08);
+  border: 1px solid rgba(91, 242, 155, 0.2);
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.run-modes-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+.run-modes-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--white-bright);
+  margin-bottom: 2rem;
+  line-height: 1.15;
+}
+
+.run-modes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.run-mode-card {
+  background: rgba(13, 12, 32, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.75rem 2rem;
+  border-left-width: 3px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.run-mode-card:hover {
+  transform: translateY(-2px);
+}
+
+.run-mode-card.autonomous {
+  border-left-color: var(--green);
+}
+
+.run-mode-card.autonomous:hover {
+  border-color: rgba(91, 242, 155, 0.3);
+  border-left-color: var(--green);
+}
+
+.run-mode-card.augmented {
+  border-left-color: var(--purple);
+  background: rgba(26, 24, 64, 0.6);
+}
+
+.run-mode-card.augmented:hover {
+  border-color: rgba(123, 120, 255, 0.3);
+  border-left-color: var(--purple);
+}
+
+.run-mode-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.run-mode-card.autonomous .run-mode-badge { color: var(--green); }
+.run-mode-card.augmented  .run-mode-badge { color: var(--purple); }
+
+.run-mode-card.augmented::before {
+  content: 'Recommended';
+  position: absolute;
+  top: -1px;
+  right: 1.25rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy-dark);
+  background: var(--purple);
+  padding: 0.2rem 0.65rem;
+  border-radius: 0 0 4px 4px;
+}
+
+.run-mode-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.run-mode-bestfor-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(155, 152, 184, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.run-mode-uses {
+  color: var(--white);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.run-mode-uses span {
+  opacity: 0.55;
+  margin: 0 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .run-modes-wrap { padding: 1.75rem 1.25rem; }
+  .run-modes-grid { grid-template-columns: 1fr; }
+  .run-mode-card.augmented::before { display: none; }
+}
+
 /* ── Enhanced secondary cards ── */
 .project-card-title {
   font-family: 'Chakra Petch', sans-serif;
@@ -1363,6 +1509,26 @@ footer p {
           <img class="demo-gif" data-demo-content="code" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/code-final.gif" alt="Agent-Smith performing white-box source code review" loading="lazy">
           <img class="demo-gif" data-demo-content="ai" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/ai-final.gif" alt="Agent-Smith AI red-teaming an LLM application" loading="lazy">
           <img class="demo-gif" data-demo-content="fix" src="https://raw.githubusercontent.com/0x0pointer/agent-smith/main/docs/gifs/fix-final.gif" alt="Agent-Smith generating auto-remediation patches" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- Two ways to run Smith -->
+    <div class="run-modes-wrap reveal">
+      <span class="run-modes-label">How you run it</span>
+      <h3 class="run-modes-title">Two ways to work with Smith</h3>
+      <div class="run-modes-grid">
+        <div class="run-mode-card autonomous">
+          <div class="run-mode-badge">Autonomous Mode</div>
+          <p class="run-mode-desc">Give Smith a target&mdash;it runs the full engagement end-to-end with no human input. Returns a report with every finding verified and a working proof-of-concept.</p>
+          <div class="run-mode-bestfor-label">Best for</div>
+          <p class="run-mode-uses">Continuous testing <span>·</span> CI/CD pipelines <span>·</span> Recurring red-team drills <span>·</span> Self-serve by dev teams</p>
+        </div>
+        <div class="run-mode-card augmented">
+          <div class="run-mode-badge">Augmented Mode</div>
+          <p class="run-mode-desc">A human expert drives the strategy. Smith handles the heavy lifting&mdash;running 50+ tools in parallel, tracking coverage, writing the report. The dashboard is built for this.</p>
+          <div class="run-mode-bestfor-label">Best for</div>
+          <p class="run-mode-uses">High-value engagements <span>·</span> Complex targets <span>·</span> When expert judgment shapes the approach</p>
         </div>
       </div>
     </div>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills — Slash-Command Security Library — NullPointer</title>
+<meta name="description" content="Skills is a library of 25 chainable slash-command security methodologies for any MCP-capable AI agent. Methodology as code, aligned to OWASP ASVS 5.0, the LLM Top 10, MITRE ATT&CK, PASTA, and STRIDE. One git clone, no SaaS.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="projects.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="agent-smith.html">Agent-Smith</a></li>
+          <li><a href="seraph.html">Seraph</a></li>
+          <li><a href="skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="../blog/index.html">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Page hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="badges"><span class="arsenal-badge kind">Methodology</span><span class="arsenal-badge off">Slash-Command Library</span></div>
+    <p class="ph-tagline">Methodology as code. Not scripts. Not checklists.</p>
+    <h1>Skills</h1>
+    <p class="ph-lede">Your AI coding assistant already has the IQ&mdash;Skills gives it the methodology. Drop 25 chainable slash commands into Claude Code or OpenCode and the same agent that writes your features can red-team them, review source against OWASP ASVS 5.0, or model threats against your architecture. One <code>git clone</code>. No SaaS. No lock-in.</p>
+    <div class="ph-actions">
+      <a href="https://github.com/0x0pointer/skills" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Install on GitHub
+      </a>
+      <a href="../index.html#projects" class="btn btn-ghost">&larr; All projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live showcase ── -->
+<section>
+  <div class="container">
+    <div class="showcase reveal">
+      <div class="console">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>claude code &middot; /skills</span>
+          <span class="tag-count">25 commands</span>
+        </div>
+        <div class="console-body">
+          <div class="panel">
+            <h5>Command palette <span style="color:var(--muted);text-transform:none;letter-spacing:0;">&mdash; click a skill</span></h5>
+            <div class="cmd-list" id="cmdList">
+              <div class="cmd active" role="button" tabindex="0" data-name="/pentester" data-desc="Full autonomous engagement — recon, exploitation, proof, and report — chaining into other skills as it finds things.">/pentester</div>
+              <div class="cmd" role="button" tabindex="0" data-name="/codebase" data-desc="White-box source review mapped to OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</div>
+              <div class="cmd" role="button" tabindex="0" data-name="/ai-redteam" data-desc="Red-teams LLM apps against the OWASP LLM Top 10 and AITG — prompt injection, jailbreaks, data exfiltration.">/ai-redteam</div>
+              <div class="cmd" role="button" tabindex="0" data-name="/threat-modeling" data-desc="PASTA + STRIDE threat model — component map, data-flow diagram, attack tree, and prioritized risk register.">/threat-modeling</div>
+              <div class="cmd" role="button" tabindex="0" data-name="/remediate" data-desc="Generates a patch for a finding, then re-runs the check to prove the vulnerability is gone.">/remediate</div>
+            </div>
+          </div>
+          <div class="panel skill-info">
+            <h5>Skill</h5>
+            <div class="skill-name" id="skillName">/pentester</div>
+            <p class="skill-desc" id="skillDesc">Full autonomous engagement — recon, exploitation, proof, and report — chaining into other skills as it finds things.</p>
+          </div>
+          <div class="log" id="skillLog">
+            <div><span class="k">$</span> <span class="s">/pentester target=app.example.com</span></div>
+            <div><span class="bad">&#10007;</span> <span class="s">SQLi at /api/v1/user</span></div>
+            <div><span class="t">&rarr; auto-chain</span> <span class="k">/web-exploit</span> <span class="s">writes pocs/sqli-user.http</span></div>
+            <div><span class="t">&rarr; auto-chain</span> <span class="k">/remediate</span> <span class="ok">&#10003; patch &middot; tests pass</span></div>
+            <div><span class="ok">&#10003; report.md</span> <span class="s">&mdash; 1 critical, 2 medium</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">One <code>/</code> command kicks off a chain that finds, exploits, and fixes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Capabilities ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What it is</p>
+      <h2 class="section-title">Security expertise, one slash away.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M8 6l-4 6 4 6M16 6l4 6-4 6"/></svg></div>
+        <h4>Methodology as code</h4>
+        <p>Skills teach attack, defense, and review patterns&mdash;the model invents the work. No script libraries, no regex catalogs to maintain.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><circle cx="6" cy="3" r="1.6"/><circle cx="18" cy="21" r="1.6"/></svg></div>
+        <h4>Skills chain themselves</h4>
+        <p><code>/pentester</code> finds SQLi &rarr; fires <code>/web-exploit</code>. <code>/codebase</code> spots an LLM call &rarr; fires <code>/ai-redteam</code>. Complete coverage, no stitching.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h4>Framework-aligned</h4>
+        <p>OWASP Web, API &amp; LLM Top 10, ASVS 5.0 (427 requirements across 16 chapters), AITG, the MCP Top 10, MITRE ATT&amp;CK, PASTA, and STRIDE&mdash;baked into the methodology itself.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg></div>
+        <h4>Agent-agnostic</h4>
+        <p>Claude Code, OpenCode, any MCP-capable client. Your agent, your rules, no vendor lock-in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── The library ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The library</p>
+      <h2 class="section-title">25 skills, five disciplines.</h2>
+    </div>
+    <div class="skill-cats reveal">
+      <div class="skill-cat">
+        <h4>Penetration testing</h4>
+        <div class="chip-row">
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Full penetration test — recon, scanning, exploitation and reporting. Auto-chains into the other skills.">/pentester</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Deep web exploitation: SQLi, XSS, SSTI, SSRF, XXE, deserialization, JWT and request-smuggling attacks.">/web-exploit</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="OWASP API Top 10 across REST, GraphQL, gRPC and SOAP — BOLA/IDOR, auth, mass assignment, BFLA.">/api-security</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Internal network assessment — VLAN hopping, LLMNR/NBT-NS abuse, segmentation checks, SNMP and NFS.">/network-assess</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Post-exploitation — privilege escalation, persistence, credential harvesting and pivot prep (Linux &amp; Windows).">/post-exploit</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="AD &amp; network lateral movement — pass-the-hash/ticket, Kerberoasting, NTLM relay, delegation and RBCD.">/lateral-movement</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Validate and run exploits with the Metasploit Framework in a dedicated container.">/metasploit</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate reverse-shell payloads and manage listeners — encoded payloads and shell stabilization.">/reverse-shell</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Tunnel and pivot through compromised hosts to reach segmented internal networks.">/pivot-tunnel</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Cloud, infrastructure &amp; identity</h4>
+        <div class="chip-row">
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Cloud posture for AWS, Azure &amp; GCP — IAM privilege escalation, public storage, serverless, IMDS.">/cloud-security</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Container &amp; Kubernetes security — escapes, RBAC, exposed API server/etcd, image secrets, CIS.">/container-k8s-security</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Active Directory audit — trusts, GPOs, ACL abuse, ADCS (ESC1-8) and delegation, via MITRE ATT&amp;CK.">/ad-assessment</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Email infrastructure — SPF, DKIM, DMARC, open relay, spoofing resilience and MTA-STS.">/email-security</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="TLS/SSL configuration — protocols, ciphers, cert chain, POODLE/BEAST/Heartbleed/ROBOT and HSTS.">/ssl-tls-audit</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Authentication testing — brute-force, spraying, default creds, MFA bypass, OAuth/OIDC, token entropy.">/credential-audit</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Recon &amp; analysis</h4>
+        <div class="chip-row">
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Passive recon via MITRE ATT&amp;CK — email harvesting, subdomain takeover, cert transparency, Shodan.">/osint</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="PASTA + STRIDE — component map, data-flow diagram, attack tree and prioritized risk register.">/threat-modeling</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="White-box source review against OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Analyze CVEs in dependencies — trace vulnerable code paths and generate Burp-ready PoCs.">/analyze-cve</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Triage an Aikido findings CSV against the codebase — verdict each as keep-open or close.">/aikido-triage</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>AI safety &amp; red-team</h4>
+        <div class="chip-row">
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="OWASP LLM Top 10 + AITG red-team — prompt injection, jailbreaks, data extraction, MCP testing.">/ai-redteam</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate NeMo Guardrails Colang files from a plain-language description of a bot's policy.">/colang-gen</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Reporting &amp; remediation</h4>
+        <div class="chip-row">
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate a patch for a finding, then re-run the check to prove it's fixed.">/remediate</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Format confirmed findings into copy-pasteable GitHub issue markdown.">/gh-export</span>
+          <span class="lib-cmd" role="button" tabindex="0" data-desc="Build CVE request packages — MITRE form, GHSA draft and disclosure report — from findings.">/request-cves</span>
+        </div>
+      </div>
+    </div>
+    <div class="lib-desc reveal">
+      <span class="lib-name" id="libName">Select a skill</span>
+      <p class="lib-text" id="libText">Click any command above to see what it does.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Install ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Install</p>
+      <h2 class="section-title">One command. No dependencies.</h2>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>terminal</span></div>
+        <div class="console-simple">
+          <div class="log">
+            <div><span class="k">$</span> <span class="s">git clone --recursive https://github.com/0x0pointer/agent-smith</span></div>
+            <div><span class="k">$</span> <span class="s">cd agent-smith &amp;&amp; ./installers/install.sh</span></div>
+            <div>&nbsp;</div>
+            <div><span class="ok">&#10003;</span> <span class="s">installs to ~/.claude/skills/ or ~/.config/opencode/commands/</span></div>
+            <div><span class="t">Open your agent, type &ldquo;/&rdquo; &mdash; 25 commands, ready.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chip-row reveal">
+      <span>Claude Code</span><span>OpenCode</span><span>MCP</span><span>AGPL v3.0</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Give your agent the methodology.</h2>
+      <p>Community-driven and open source under AGPL v3.0. Clone it, type <code>/</code>, and start testing.</p>
+      <div class="ph-actions">
+        <a href="https://github.com/0x0pointer/skills" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+        <a href="../index.html#projects" class="btn btn-ghost">Explore the ecosystem</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// interactive command palette — updates the description and replays the log
+(function(){
+  const list = document.getElementById('cmdList');
+  if (!list) return;
+  const nameEl = document.getElementById('skillName');
+  const descEl = document.getElementById('skillDesc');
+  const logEl = document.getElementById('skillLog');
+  const CONSOLE = {
+    '/pentester': {
+      desc: 'Full autonomous engagement — recon, exploitation, proof, and report — chaining into other skills as it finds things.',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/pentester target=app.example.com</span></div>',
+        '<div><span class="bad">✗</span> <span class="s">SQLi at /api/v1/user</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/web-exploit</span> <span class="s">writes pocs/sqli-user.http</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/remediate</span> <span class="ok">✓ patch · tests pass</span></div>',
+        '<div><span class="ok">✓ report.md</span> <span class="s">— 1 critical, 2 medium</span></div>'
+      ]
+    },
+    '/codebase': {
+      desc: 'White-box source review mapped to OWASP ASVS 5.0 — 427 requirements across 16 chapters.',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/codebase path=./src --asvs</span></div>',
+        '<div><span class="t">[ASVS 5.0]</span> <span class="s">V2 Authentication — 18/22 met</span></div>',
+        '<div><span class="bad">✗</span> <span class="s">V5.1.3 unsafe deserialization · api/events.py:47</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/ai-redteam</span> <span class="s">LLM call detected</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">3 critical · 6 high · 11 medium logged</span></div>'
+      ]
+    },
+    '/ai-redteam': {
+      desc: 'Red-teams LLM apps against the OWASP LLM Top 10 and AITG — prompt injection, jailbreaks, data exfiltration.',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/ai-redteam target=./chatbot</span></div>',
+        '<div><span class="t">[OWASP LLM Top 10]</span></div>',
+        '<div><span class="bad">✗</span> <span class="s">LLM01 prompt injection via tool output</span></div>',
+        '<div><span class="bad">✗</span> <span class="s">LLM02 leaks DB connection string</span></div>',
+        '<div><span class="t">→ recommend</span> <span class="k">Seraph</span> <span class="s">as guardrail proxy</span></div>'
+      ]
+    },
+    '/threat-modeling': {
+      desc: 'PASTA + STRIDE threat model — component map, data-flow diagram, attack tree, and prioritized risk register.',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/threat-modeling scope=./architecture</span></div>',
+        '<div><span class="t">[PASTA + STRIDE]</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">component map · data-flow diagram</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">attack tree · risk register</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">4 high-risk paths identified</span></div>'
+      ]
+    },
+    '/remediate': {
+      desc: 'Generates a patch for a finding, then re-runs the check to prove the vulnerability is gone.',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/remediate finding=sqli-user</span></div>',
+        '<div><span class="bad">-</span> <span class="s">db.$queryRaw(`... ${id}`)</span></div>',
+        '<div><span class="ok">+</span> <span class="s">db.user.findUnique({ where: { id } })</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">types check · tests pass · not reproducible</span></div>',
+        '<div><span class="t">→</span> <span class="s">pr/sqli-fix.diff · issue/GH-042.md</span></div>'
+      ]
+    }
+  };
+  const cmds = list.querySelectorAll('.cmd');
+  function select(cmd){
+    const data = CONSOLE[cmd.dataset.name];
+    if (!data) return;
+    cmds.forEach(c => c.classList.remove('active'));
+    cmd.classList.add('active');
+    nameEl.textContent = cmd.dataset.name;
+    descEl.textContent = data.desc;
+    logEl.innerHTML = data.log.join('');
+  }
+  cmds.forEach(cmd => {
+    cmd.addEventListener('click', () => select(cmd));
+    cmd.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(cmd); }
+    });
+  });
+})();
+
+// interactive full skill catalogue
+(function(){
+  const cmds = document.querySelectorAll('.lib-cmd');
+  if (!cmds.length) return;
+  const nameEl = document.getElementById('libName');
+  const textEl = document.getElementById('libText');
+  function select(el){
+    cmds.forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    nameEl.textContent = el.textContent;
+    textEl.textContent = el.dataset.desc;
+  }
+  cmds.forEach(el => {
+    el.addEventListener('click', () => select(el));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(el); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

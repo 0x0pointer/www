@@ -832,7 +832,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .tier-step:not(:last-child)::after{content:'';position:absolute;left:4px;top:1.4rem;height:calc(100% - .8rem);width:1px;background:var(--border-strong)}
 .tier-step.block{color:var(--white-bright)}
 .tier-step .verdict{margin-left:auto;font-size:.64rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;letter-spacing:.04em}
-.verdict.bad{background:rgba(255,107,107,.22);color:#ffb3b3}
+.verdict.bad{background:#3a1922;color:#ff9d9d}
 
 /* command palette */
 .cmd-list{display:flex;flex-direction:column;gap:.3rem}
@@ -951,7 +951,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .req.active { border-color: var(--purple); background: var(--purple-dim); color: var(--white); }
 .req:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
 .req .tag { flex: 0 0 auto; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.1rem 0.4rem; border-radius: 3px; margin-top: 0.05rem; background: var(--purple-dim); color: var(--purple); }
-.req .tag.atk { background: rgba(255,107,107,0.22); color: #ffb3b3; }
+.req .tag.atk { background: #3a1922; color: #ff9d9d; }
 .req .tag.ok { background: var(--green-dim); color: var(--green); }
 
 /* ── Agent-Smith sandbox: engagement summary + neutral target tags ── */

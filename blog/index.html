@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — NullPointer</title>
+<meta name="description" content="Articles on offensive and defensive application security, AI-powered pentesting, and LLM guardrails from the NullPointer team.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="../projects/agent-smith.html">Agent-Smith</a></li>
+          <li><a href="../projects/seraph.html">Seraph</a></li>
+          <li><a href="../projects/skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Header ── -->
+<header class="blog-header">
+  <div class="container">
+    <div class="reveal visible">
+      <p class="section-label">Blog</p>
+      <h1 class="section-title">Field notes from the frontier.</h1>
+      <p class="section-subtitle">Articles on offensive and defensive application security, AI-powered pentesting, LLM guardrails, and the methodologies behind the NullPointer ecosystem.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ── Post list ── -->
+<main class="container">
+  <div class="post-list">
+
+    <!--
+      To add a new article:
+      1. Copy _template.html to a new file (e.g. my-article.html) and fill it in.
+      2. Copy the card below, update the href, cover, date, tags, title, and excerpt.
+         For the cover use either a real image:
+           <div class="post-card-cover"><img src="covers/my-article.png" alt=""></div>
+         or an inline SVG illustration like the one below.
+      3. Keep the newest post at the top of this list.
+    -->
+
+    <a href="hello-world.html" class="post-card reveal visible">
+      <div class="post-card-cover">
+        <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" fill="none" role="img" aria-label="Terminal window illustration">
+          <rect width="640" height="360" fill="#1a1840"/>
+          <g opacity="0.35" stroke="#7b78ff" stroke-width="1">
+            <line x1="0" y1="60" x2="640" y2="60" opacity="0.15"/>
+            <line x1="0" y1="150" x2="640" y2="150" opacity="0.1"/>
+            <line x1="0" y1="240" x2="640" y2="240" opacity="0.15"/>
+            <line x1="0" y1="330" x2="640" y2="330" opacity="0.1"/>
+            <line x1="110" y1="0" x2="110" y2="360" opacity="0.1"/>
+            <line x1="320" y1="0" x2="320" y2="360" opacity="0.15"/>
+            <line x1="530" y1="0" x2="530" y2="360" opacity="0.1"/>
+          </g>
+          <rect x="170" y="90" width="300" height="180" rx="8" fill="#13112e" stroke="#5bf29b" stroke-width="1.5"/>
+          <circle cx="192" cy="112" r="5" fill="#7b78ff" opacity="0.6"/>
+          <circle cx="210" cy="112" r="5" fill="#5bf29b" opacity="0.6"/>
+          <circle cx="228" cy="112" r="5" fill="#e8e6f0" opacity="0.3"/>
+          <text x="192" y="160" font-family="monospace" font-size="18" fill="#5bf29b">$ ./blog --init</text>
+          <text x="192" y="192" font-family="monospace" font-size="16" fill="#7b78ff" opacity="0.8">hello, world_</text>
+          <rect x="330" y="180" width="10" height="16" fill="#5bf29b">
+            <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+          </rect>
+          <text x="192" y="236" font-family="monospace" font-size="13" fill="#9b98b8" opacity="0.7">[ok] publishing article 001...</text>
+          <circle cx="540" cy="70" r="3" fill="#5bf29b" opacity="0.7">
+            <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="90" cy="290" r="2.5" fill="#7b78ff" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;0.15;0.6" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="post-card-date">2026-07-10</span>
+          <span class="post-tag">Announcement</span>
+          <span class="post-tag tag-purple">Ecosystem</span>
+        </div>
+        <h2>Hello, world: the NullPointer blog</h2>
+        <p>Why we're starting a blog, what you can expect to read here, and a quick tour of the open-source ecosystem it will cover&mdash;from Agent-Smith to Seraph and the skills library in between.</p>
+        <span class="post-card-more">Read article &rarr;</span>
+      </div>
+    </a>
+
+    <a href="skills-not-scripts.html" class="post-card reveal visible">
+      <div class="post-card-cover">
+        <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" fill="none" role="img" aria-label="Skill chain illustration">
+          <rect width="640" height="360" fill="#1a1840"/>
+          <g opacity="0.35" stroke="#7b78ff" stroke-width="1">
+            <line x1="0" y1="90" x2="640" y2="90" opacity="0.12"/>
+            <line x1="0" y1="270" x2="640" y2="270" opacity="0.12"/>
+            <line x1="213" y1="0" x2="213" y2="360" opacity="0.1"/>
+            <line x1="426" y1="0" x2="426" y2="360" opacity="0.1"/>
+          </g>
+          <line x1="150" y1="180" x2="320" y2="180" stroke="#5bf29b" stroke-width="1.5" opacity="0.5"/>
+          <line x1="320" y1="180" x2="490" y2="180" stroke="#5bf29b" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="150" cy="180" r="26" fill="#13112e" stroke="#5bf29b" stroke-width="1.5"/>
+          <circle cx="320" cy="180" r="26" fill="#13112e" stroke="#5bf29b" stroke-width="1.5"/>
+          <circle cx="490" cy="180" r="30" fill="#5bf29b"/>
+          <path d="M323 168l-10 14h8l-1 10 10-14h-8z" fill="#5bf29b"/>
+          <path d="M147 168l-9 14h7l-1 10 9-14h-7z" fill="#5bf29b"/>
+          <path d="M485 170l-9 14h7l-1 10 9-14h-7z" fill="#13112e"/>
+          <text x="150" y="240" font-family="monospace" font-size="12" fill="#9b98b8" text-anchor="middle">/pentester</text>
+          <text x="320" y="240" font-family="monospace" font-size="12" fill="#9b98b8" text-anchor="middle">/web-exploit</text>
+          <text x="490" y="248" font-family="monospace" font-size="12" fill="#5bf29b" text-anchor="middle">/remediate</text>
+        </svg>
+      </div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="post-card-date">2026-07-03</span>
+          <span class="post-tag">Offensive</span>
+          <span class="post-tag tag-purple">Methodology</span>
+        </div>
+        <h2>Skills, not scripts: how Agent-Smith chains an attack</h2>
+        <p>Most &ldquo;AI pentesters&rdquo; are chatbots wrapped around a script library. We took the opposite bet&mdash;teach the methodology, let the model invent the attack, and let skills chain themselves.</p>
+        <span class="post-card-more">Read article &rarr;</span>
+      </div>
+    </a>
+
+    <a href="firewall-you-cant-jailbreak.html" class="post-card reveal visible">
+      <div class="post-card-cover">
+        <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" fill="none" role="img" aria-label="Shield illustration">
+          <rect width="640" height="360" fill="#1a1840"/>
+          <g opacity="0.35" stroke="#5bf29b" stroke-width="1">
+            <line x1="0" y1="120" x2="640" y2="120" opacity="0.1"/>
+            <line x1="0" y1="240" x2="640" y2="240" opacity="0.1"/>
+          </g>
+          <path d="M320 70l90 40v55c0 58-40 92-90 105-50-13-90-47-90-105v-55l90-40z" fill="#13112e" stroke="#7b78ff" stroke-width="2"/>
+          <path d="M320 108l58 26v40c0 40-27 63-58 73-31-10-58-33-58-73v-40l58-26z" fill="none" stroke="#7b78ff" stroke-width="1" opacity="0.4"/>
+          <path d="M292 178l20 20 40-40" stroke="#5bf29b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="470" cy="110" r="3" fill="#7b78ff" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;0.15;0.6" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="165" cy="250" r="2.5" fill="#5bf29b" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;0.15;0.6" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="post-card-date">2026-06-26</span>
+          <span class="post-tag tag-purple">Defensive</span>
+          <span class="post-tag">LLM Security</span>
+        </div>
+        <h2>A firewall you can't jailbreak: designing Seraph</h2>
+        <p>Every blocklist eventually fails. Here's why we built Seraph on a positive-security allow-list instead&mdash;and what it means to be immune to prompt injection by design.</p>
+        <span class="post-card-more">Read article &rarr;</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+</script>
+</body>
+</html>

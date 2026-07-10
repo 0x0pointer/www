@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills, not scripts: how Agent-Smith chains an attack — NullPointer</title>
+<meta name="description" content="Most AI pentesters are chatbots wrapped around a script library. Agent-Smith teaches the methodology and lets the model invent the attack.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="../projects/agent-smith.html">Agent-Smith</a></li>
+          <li><a href="../projects/seraph.html">Seraph</a></li>
+          <li><a href="../projects/skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Article ── -->
+<article class="article">
+  <a href="index.html" class="article-back">&larr; All articles</a>
+
+  <div class="article-meta">
+    <span class="post-card-date">2026-07-03</span>
+    <span class="post-tag">Offensive</span>
+    <span class="post-tag tag-purple">Methodology</span>
+  </div>
+
+  <h1>Skills, not scripts: how Agent-Smith chains an attack</h1>
+
+  <p class="article-lede">
+    Most tools marketed as &ldquo;AI pentesters&rdquo; are a chatbot bolted onto a library of pre-written scripts. Agent-Smith takes the opposite bet: the skills teach the <em>methodology</em>, and the model invents the attack.
+  </p>
+
+  <div class="article-body">
+    <h2>The problem with script libraries</h2>
+    <p>
+      A script library can only run the attacks someone already thought to write. The moment a target looks a little different&mdash;an unusual parameter, a chained precondition, a business-logic quirk&mdash;the script has nothing to say. You end up with a tool that is confident on the demo and useless on the real thing.
+    </p>
+
+    <h2>Methodology as the unit of knowledge</h2>
+    <p>
+      Agent-Smith ships <strong>patterns, not payloads</strong>. Each skill encodes how a discipline actually thinks&mdash;what to look for, how to confirm it, when to escalate&mdash;aligned to frameworks like <strong>OWASP ASVS 5.0</strong>, the <strong>LLM Top 10</strong>, and <strong>MITRE ATT&amp;CK</strong>. The LLM supplies the reasoning; the skill supplies the discipline.
+    </p>
+
+    <h2>Self-chaining in practice</h2>
+    <p>A single run threads several skills together without any human stitching:</p>
+    <ul>
+      <li><code>/pentester</code> maps the surface and fingerprints the stack.</li>
+      <li>It finds a blind SQL injection and <strong>chains into</strong> <code>/web-exploit</code> to confirm and weaponize it.</li>
+      <li><code>/remediate</code> generates a patch and re-runs the check to prove the vuln is gone.</li>
+      <li>Everything lands as a report with Burp-ready PoCs and draft GitHub issues.</li>
+    </ul>
+    <p>
+      The chain isn&rsquo;t hard-coded. The model decides what to run next based on what it just found&mdash;which is exactly what a human operator does.
+    </p>
+
+    <h2>Why it stays safe</h2>
+    <p>
+      Every scanner runs inside an ephemeral Docker sandbox with hard cost, time, and call-count limits enforced server-side. The agent is free to improvise; the blast radius is not.
+    </p>
+
+    <p>
+      Want to see the skills? They&rsquo;re open source on the <a href="https://github.com/0x0pointer" target="_blank" rel="noopener">GitHub org</a>.
+    </p>
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html" class="article-back">&larr; All articles</a>
+  </div>
+</article>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+</script>
+</body>
+</html>

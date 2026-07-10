@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  Article template. To publish a new post:
+  1. Copy this file:  cp _template.html my-article-slug.html
+  2. Replace every placeholder below (title, description, date, tags, content).
+  3. Add a matching card at the top of the post list in blog/index.html.
+  Available body elements: headings, paragraphs, "strong" and "code" inline,
+  "pre"+"code" for code blocks, "blockquote" for quotes, and "ul"/"li" for lists.
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article title — NullPointer</title>
+<meta name="description" content="One-sentence summary for search engines and link previews.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="../projects/agent-smith.html">Agent-Smith</a></li>
+          <li><a href="../projects/seraph.html">Seraph</a></li>
+          <li><a href="../projects/skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Article ── -->
+<article class="article">
+  <a href="index.html" class="article-back">&larr; All articles</a>
+
+  <div class="article-meta">
+    <span class="post-card-date">YYYY-MM-DD</span>
+    <span class="post-tag">Tag</span>
+    <span class="post-tag tag-purple">Second tag</span>
+  </div>
+
+  <h1>Article title</h1>
+
+  <p class="article-lede">
+    A one-to-three sentence lede that hooks the reader and summarizes the article.
+  </p>
+
+  <div class="article-body">
+    <h2>First section heading</h2>
+    <p>Body text. Use <strong>strong</strong> for emphasis, <code>inline code</code> for identifiers, and links like <a href="https://example.com">this</a>. Add more headings, lists, quotes, or code blocks as needed.</p>
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html" class="article-back">&larr; All articles</a>
+  </div>
+</article>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+</script>
+</body>
+</html>

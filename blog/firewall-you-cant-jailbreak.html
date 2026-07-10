@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A firewall you can't jailbreak: designing Seraph — NullPointer</title>
+<meta name="description" content="Every blocklist eventually fails. Here's why Seraph is built on a positive-security allow-list and is immune to prompt injection by design.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="../projects/agent-smith.html">Agent-Smith</a></li>
+          <li><a href="../projects/seraph.html">Seraph</a></li>
+          <li><a href="../projects/skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Article ── -->
+<article class="article">
+  <a href="index.html" class="article-back">&larr; All articles</a>
+
+  <div class="article-meta">
+    <span class="post-card-date">2026-06-26</span>
+    <span class="post-tag tag-purple">Defensive</span>
+    <span class="post-tag">LLM Security</span>
+  </div>
+
+  <h1>A firewall you can&rsquo;t jailbreak: designing Seraph</h1>
+
+  <p class="article-lede">
+    Blocklists are a losing game&mdash;an attacker only needs one phrasing your filter hasn&rsquo;t seen. Seraph takes the opposite approach: define what users <em>are</em> allowed to ask, and reject everything else by default.
+  </p>
+
+  <div class="article-body">
+    <h2>Negative security never finishes</h2>
+    <p>
+      A blocklist enumerates badness. But prompt injection has effectively infinite phrasings, so the list is never complete&mdash;you&rsquo;re always one clever rewrite behind. Worse, most guardrails read the prompt <em>as instructions</em> to decide if it&rsquo;s safe, which is the very thing attackers exploit.
+    </p>
+
+    <h2>Positive security by design</h2>
+    <p>
+      Seraph flips the model. You declare the intents your application is meant to serve; anything that doesn&rsquo;t match is refused. There is <strong>no blocklist to bypass</strong> because the default answer is &ldquo;no.&rdquo;
+    </p>
+
+    <h2>Two tiers, one gate</h2>
+    <ul>
+      <li><strong>Tier 1 &mdash; semantic allow-list.</strong> A NeMo + embeddings check scores the request against allowed intents at line speed and rejects the obvious.</li>
+      <li><strong>Tier 2 &mdash; LLM-as-judge.</strong> Genuine edge cases escalate to a judge model that rules on intent&mdash;never treating the user&rsquo;s text as commands.</li>
+    </ul>
+    <p>
+      Because the gate evaluates <em>intent</em> rather than executing the prompt, &ldquo;jailbreaking Seraph&rdquo; is a contradiction in terms&mdash;there&rsquo;s no instruction channel to hijack.
+    </p>
+
+    <h2>Drop-in, zero prompt changes</h2>
+    <p>
+      Point your SDK&rsquo;s base URL at Seraph and you&rsquo;re protected&mdash;OpenAI, Anthropic, Azure, Ollama, vLLM. No changes to your prompts, tools, or business logic. It also scrubs outbound responses, catching leaked secrets before they reach the client.
+    </p>
+
+    <p>
+      The proxy is open source on the <a href="https://github.com/0x0pointer" target="_blank" rel="noopener">GitHub org</a>&mdash;deploy it in front of any model you already run.
+    </p>
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html" class="article-back">&larr; All articles</a>
+  </div>
+</article>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+</script>
+</body>
+</html>

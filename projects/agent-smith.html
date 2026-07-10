@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent-Smith — AI Pentest Agent — NullPointer</title>
+<meta name="description" content="Agent-Smith is an autonomous AI pentest agent. Skills teach the methodology, the LLM invents the attack — self-chaining across web, cloud, AD, and AI red-team, all sandboxed. It builds a live world model as it scans.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="projects.css">
+
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="agent-smith.html">Agent-Smith</a></li>
+          <li><a href="seraph.html">Seraph</a></li>
+          <li><a href="skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="../blog/index.html">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Page hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="badges"><span class="arsenal-badge off">Offensive</span><span class="arsenal-badge kind">AI Pentest Agent</span></div>
+    <p class="ph-tagline">Built for testers who want to think, not babysit.</p>
+    <h1>Agent-Smith</h1>
+    <p class="ph-lede">An autonomous pentest agent that thinks like an attacker. Point it at a URL, a repo, or a network and it runs the whole engagement itself&mdash;recon, exploitation, proof, remediation, and reporting&mdash;chaining 25+ specialized skills without a human stitching the steps together.</p>
+    <div class="ph-actions">
+      <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Deploy on GitHub
+      </a>
+      <a href="../index.html#projects" class="btn btn-ghost">&larr; All projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live showcase: the world model console ── -->
+<section>
+  <div class="container">
+    <div class="showcase reveal">
+      <div class="console">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>agent-smith &middot; engagement #4192</span>
+          <span class="live"><i></i>LIVE</span>
+        </div>
+        <div class="console-body">
+          <div class="panel wm-panel">
+            <h5>World model <span class="wm-count" style="text-transform:none;letter-spacing:0;margin-left:.4rem;"></span></h5>
+            <canvas class="worldgraph"></canvas>
+            <div class="wm-legend">
+              <span class="wm-filter" data-type="target"><i style="background:#7b78ff"></i>Target</span>
+              <span class="wm-filter" data-type="host"><i style="background:#5bf29b"></i>Host</span>
+              <span class="wm-filter" data-type="leaf"><i style="background:#9b98b8"></i>Endpoint</span>
+              <span class="wm-filter" data-type="vuln"><i style="background:#ff8f8f"></i>Vuln</span>
+            </div>
+            <div class="wm-inspect"><span class="wmi-hint">Click a node to inspect it.</span></div>
+          </div>
+          <div class="panel">
+            <h5>Findings by severity</h5>
+            <div class="sev">
+              <div class="sev-row"><span class="sev-dot" style="background:#ff6b6b"></span>Critical<b>1</b></div>
+              <div class="bar"><i style="width:20%;background:#ff6b6b"></i></div>
+              <div class="sev-row"><span class="sev-dot" style="background:#ffb86c"></span>High<b>0</b></div>
+              <div class="bar"><i style="width:0%;background:#ffb86c"></i></div>
+              <div class="sev-row"><span class="sev-dot" style="background:var(--purple)"></span>Medium<b>2</b></div>
+              <div class="bar"><i style="width:45%;background:var(--purple)"></i></div>
+              <div class="sev-row"><span class="sev-dot" style="background:var(--muted)"></span>Low<b>3</b></div>
+              <div class="bar"><i style="width:65%;background:var(--muted)"></i></div>
+            </div>
+          </div>
+          <div class="log">
+            <div><span class="t">14:22:07</span> <span class="k">[recon]</span> <span class="s">host discovered: app.example.com</span></div>
+            <div><span class="t">14:22:19</span> <span class="k">[recon]</span> <span class="s">+12 hosts &middot; 47 endpoints &rarr; world model</span></div>
+            <div><span class="t">14:22:41</span> <span class="k">[web-exploit]</span> <span class="bad">&#10007; SQLi</span> <span class="s">node linked to /api/v1/user</span></div>
+            <div><span class="t">14:23:19</span> <span class="k">[remediate]</span> <span class="ok">&#10003; patch generated &middot; tests pass</span></div>
+            <div><span class="t">14:23:20</span> <span class="ok">&#10003; report.md ready</span> <span class="s">&mdash; 1 critical, 2 medium</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">A live world model &mdash; every host, endpoint, and finding, linked as it scans.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Capabilities ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What it does</p>
+      <h2 class="section-title">One brain, every attack surface.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <h4>Every surface</h4>
+        <p>25+ specialized skills spanning web, network, cloud, Active Directory, AI red-team, white-box source review, and threat modeling.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h4>Self-chaining skills</h4>
+        <p>Detects a SQL injection, pivots to exploitation, writes the PoC&mdash;no manual stitching. The LLM decides what to run next based on what it just found.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+        <h4>Sandboxed by default</h4>
+        <p>50+ security tools run inside an ephemeral Kali Docker sandbox with hard cost, time, and call-count limits enforced server-side. The agent improvises; the blast radius doesn't.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h4>Bring your own LLM</h4>
+        <p>Claude, OpenAI Codex, Gemini, Ollama, OpenRouter&mdash;or fully local on your own GPU via vLLM. The methodology ships with the skill; the model does the thinking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Sandbox ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Sandbox</p>
+      <h2 class="section-title">Run an engagement.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">Pick a target and watch Smith work &mdash; it fingerprints the surface, chains the right skills, and reports what it finds. Same brain, five very different targets.</p>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>agent-smith &middot; sandbox</span>
+          <span class="live"><i></i>LIVE</span>
+        </div>
+        <div class="console-body">
+          <div class="panel">
+            <h5>Pick a target &mdash; click one</h5>
+            <div class="req-list" id="tgtList">
+              <button type="button" class="req active" data-id="web"><span class="tag">Web</span><span>https://staging.example.com</span></button>
+              <button type="button" class="req" data-id="code"><span class="tag">Code</span><span>github.com/acme/api</span></button>
+              <button type="button" class="req" data-id="net"><span class="tag">Network</span><span>10.0.0.0/24 (internal)</span></button>
+              <button type="button" class="req" data-id="ai"><span class="tag">AI</span><span>chat.example.com (LLM app)</span></button>
+              <button type="button" class="req" data-id="cloud"><span class="tag">Cloud</span><span>AWS account #4192</span></button>
+            </div>
+          </div>
+          <div class="panel">
+            <h5>Engagement</h5>
+            <div class="eng">
+              <div class="eng-row"><span class="eng-k">Surface</span><span class="eng-v" id="engSurface">Web app</span></div>
+              <div class="eng-row"><span class="eng-k">Skill chain</span><span class="eng-v" id="engChain">/pentester → /web-exploit → /remediate</span></div>
+              <div class="eng-row"><span class="eng-k">Result</span><span class="eng-v" id="engResult">1 critical · 2 medium</span></div>
+            </div>
+          </div>
+          <div class="log" id="engLog">
+            <div><span class="k">$</span> <span class="s">/pentester scan https://staging.example.com depth=thorough</span></div>
+            <div><span class="t">[recon]</span> <span class="s">Next.js &middot; PostgreSQL &middot; 47 endpoints</span></div>
+            <div><span class="t">[web-exploit]</span> <span class="bad">&#10007; blind SQLi</span> <span class="s">at /api/v1/user</span></div>
+            <div><span class="t">[remediate]</span> <span class="ok">&#10003; patch &middot; tests pass</span></div>
+            <div><span class="ok">&#10003; report.md</span> <span class="s">&mdash; 1 critical, 2 medium</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">One agent, five surfaces &mdash; each run picks and chains its own skills.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── World model ── -->
+<section>
+  <div class="container">
+    <div class="reveal" style="max-width:62ch;">
+      <p class="section-label">The world model</p>
+      <h2 class="section-title">It remembers what it finds.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">As Agent-Smith scans, it builds a knowledge graph of the target&mdash;hosts, ports, services, endpoints, technologies, credentials, and vulnerabilities, linked by how they relate. Findings reference the exact node they came from, coverage is tracked endpoint&#215;technique, and the whole model persists to <code style="font-family:'IBM Plex Mono',monospace;color:var(--green);">findings.json</code>. That shared context is what lets skills chain intelligently instead of running blind.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── How you run it ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">How you run it</p>
+      <h2 class="section-title">Two ways to work with Smith.</h2>
+    </div>
+    <div class="b-modes reveal" style="margin-top:2rem;">
+      <div class="tglcard">
+        <div class="tgl on"></div>
+        <div><h4>Autonomous mode</h4><p>Give it a target&mdash;full engagement end-to-end, no human in the loop. Returns a report with every finding verified and a working PoC. Built for CI/CD, continuous testing, and dev self-serve.</p></div>
+      </div>
+      <div class="tglcard">
+        <div class="tgl exp"></div>
+        <div><h4>Augmented mode <span style="color:var(--green);font-size:0.78em;letter-spacing:0.04em;">· RECOMMENDED</span></h4><p>A human expert drives strategy; Smith runs 50+ tools in parallel, tracks coverage, and writes the report&mdash;steer it live from the dashboard at <code>localhost:7777</code>. For high-value engagements and complex targets.</p></div>
+      </div>
+    </div>
+    <div class="chip-row reveal">
+      <span>Python</span><span>Poetry</span><span>FastAPI</span><span>Docker</span><span>MCP</span><span>Node 18+</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Quickstart ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Quickstart</p>
+      <h2 class="section-title">Clone, install, scan.</h2>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>terminal</span></div>
+        <div class="console-simple">
+          <div class="log">
+            <div><span class="k">$</span> <span class="s">git clone --recursive https://github.com/0x0pointer/agent-smith</span></div>
+            <div><span class="k">$</span> <span class="s">cd agent-smith &amp;&amp; ./installers/install.sh</span> <span class="t"># or install_codex.sh / install_opencode.sh</span></div>
+            <div>&nbsp;</div>
+            <div><span class="k">$</span> <span class="s">claude -p "/pentester scan https://staging.example.com depth=thorough"</span></div>
+            <div>&nbsp;</div>
+            <div><span class="ok">&#10003;</span> <span class="s">watch it work at </span><span class="k">localhost:7777</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">Requires Docker Desktop &amp; Poetry. Run headless (above) or type <code>claude</code> to steer it yourself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Deploy Agent-Smith.</h2>
+      <p>Open source, self-hosted, and model-agnostic. Clone it, point it at a target, and watch it work.</p>
+      <div class="ph-actions">
+        <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+        <a href="../index.html#projects" class="btn btn-ghost">Explore the ecosystem</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+// nav
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// reveal on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// sandbox — pick a target, watch Smith run the engagement
+(function(){
+  const list = document.getElementById('tgtList');
+  if (!list) return;
+  const surfaceEl = document.getElementById('engSurface');
+  const chainEl = document.getElementById('engChain');
+  const resultEl = document.getElementById('engResult');
+  const logEl = document.getElementById('engLog');
+  const ENG = {
+    web: {
+      surface: 'Web app', chain: '/pentester → /web-exploit → /remediate', result: '1 critical · 2 medium',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/pentester scan https://staging.example.com depth=thorough</span></div>',
+        '<div><span class="t">[recon]</span> <span class="s">Next.js · PostgreSQL · 47 endpoints</span></div>',
+        '<div><span class="t">[web-exploit]</span> <span class="bad">✗ blind SQLi</span> <span class="s">at /api/v1/user</span></div>',
+        '<div><span class="t">[remediate]</span> <span class="ok">✓ patch · tests pass</span></div>',
+        '<div><span class="ok">✓ report.md</span> <span class="s">— 1 critical, 2 medium</span></div>'
+      ]
+    },
+    code: {
+      surface: 'Source (ASVS 5.0)', chain: '/codebase → /analyze-cve → /gh-export', result: '3 critical · 6 high',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/codebase path=./ --asvs</span></div>',
+        '<div><span class="t">[ASVS 5.0]</span> <span class="bad">✗ V5.1.3</span> <span class="s">unsafe deserialization · api/events.py:47</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/analyze-cve</span> <span class="s">vulnerable dependency detected</span></div>',
+        '<div><span class="bad">✗ CVE-2024-3094</span> <span class="s">RCE in transitive dep · reachable</span></div>',
+        '<div><span class="ok">✓</span> <span class="s">3 critical · 6 high → GitHub issues</span></div>'
+      ]
+    },
+    net: {
+      surface: 'AD / internal network', chain: '/network-assess → /ad-assessment → /lateral-movement', result: 'Domain Admin path',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/network-assess range=10.0.0.0/24</span></div>',
+        '<div><span class="t">[enum]</span> <span class="s">3 DCs · SMB signing off on 12 hosts</span></div>',
+        '<div><span class="t">[ad-assessment]</span> <span class="bad">✗ Kerberoastable</span> <span class="s">service account</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/lateral-movement</span></div>',
+        '<div><span class="bad">✗ path to Domain Admin</span> <span class="s">in 3 hops</span></div>'
+      ]
+    },
+    ai: {
+      surface: 'LLM application', chain: '/ai-redteam', result: 'LLM01 · LLM02',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/ai-redteam target=chat.example.com</span></div>',
+        '<div><span class="t">[OWASP LLM Top 10]</span></div>',
+        '<div><span class="bad">✗ LLM01</span> <span class="s">prompt injection via tool output</span></div>',
+        '<div><span class="bad">✗ LLM02</span> <span class="s">leaks DB connection string</span></div>',
+        '<div><span class="t">→ recommend</span> <span class="k">Seraph</span> <span class="s">as guardrail proxy</span></div>'
+      ]
+    },
+    cloud: {
+      surface: 'Cloud (AWS)', chain: '/cloud-security', result: 'IAM priv-esc · public S3',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/cloud-security provider=aws</span></div>',
+        '<div><span class="bad">✗ public S3</span> <span class="s">bucket: acme-backups</span></div>',
+        '<div><span class="bad">✗ IAM priv-esc</span> <span class="s">via iam:PassRole</span></div>',
+        '<div><span style="color:#ffb86c">⚠ IMDSv1</span> <span class="s">enabled on 4 instances</span></div>',
+        '<div><span class="ok">✓ findings.json</span> <span class="s">updated</span></div>'
+      ]
+    }
+  };
+  const tgts = list.querySelectorAll('.req');
+  function select(t){
+    const d = ENG[t.dataset.id];
+    if (!d) return;
+    tgts.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    surfaceEl.textContent = d.surface;
+    chainEl.textContent = d.chain;
+    resultEl.textContent = d.result;
+    logEl.innerHTML = d.log.join('');
+  }
+  tgts.forEach(t => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(t); }
+    });
+  });
+})();
+
+// world model graph (dashboard)
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.querySelector('canvas.worldgraph');
+  if (!cv) { return; }
+  var ctx = cv.getContext('2d');
+  var root = cv.closest('.console') || document;
+  var inspectEl = root.querySelector('.wm-inspect');
+  var countEl = root.querySelector('.wm-count');
+  var filterEls = root.querySelectorAll('.wm-filter');
+  var C = { target: '#7b78ff', host: '#5bf29b', leaf: '#9b98b8', vuln: '#ff8f8f' };
+  var N = [
+    { x: .50, y: .50, t: 'target', r: 7, label: 'app.example.com', kind: 'Target' },
+    { x: .24, y: .26, t: 'host', r: 5, label: 'api.example.com', kind: 'Host' },
+    { x: .78, y: .24, t: 'host', r: 5, label: 'auth.example.com', kind: 'Host' },
+    { x: .80, y: .74, t: 'host', r: 5, label: 'cdn.example.com', kind: 'Host' },
+    { x: .22, y: .76, t: 'host', r: 5, label: 'admin.example.com', kind: 'Host' },
+    { x: .10, y: .14, t: 'leaf', r: 3.5, label: '/login', kind: 'Endpoint' },
+    { x: .41, y: .10, t: 'leaf', r: 3.5, label: ':443', kind: 'Service' },
+    { x: .93, y: .12, t: 'leaf', r: 3.5, label: '/signup', kind: 'Endpoint' },
+    { x: .95, y: .44, t: 'leaf', r: 3.5, label: '/api/v1/user', kind: 'Endpoint' },
+    { x: .93, y: .90, t: 'leaf', r: 3.5, label: '/static/*', kind: 'Endpoint' },
+    { x: .60, y: .93, t: 'leaf', r: 3.5, label: ':80 -> :443', kind: 'Service' },
+    { x: .08, y: .60, t: 'leaf', r: 3.5, label: '/admin', kind: 'Endpoint' },
+    { x: .33, y: .93, t: 'leaf', r: 3.5, label: ':5432 (pg)', kind: 'Service' },
+    { x: .90, y: .58, t: 'vuln', r: 4.5, label: 'SQLi - blind', kind: 'Vulnerability', sev: 'Critical' }
+  ];
+  var E = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 5], [1, 6], [2, 7], [2, 8], [3, 9], [3, 10], [4, 11], [4, 12], [8, 13]];
+  var adj = N.map(function () { return {}; });
+  E.forEach(function (e) { adj[e[0]][e[1]] = 1; adj[e[1]][e[0]] = 1; });
+  N.forEach(function (n, i) { n.phase = i * 0.9; n.order = i; });
+  var filters = { target: true, host: true, leaf: true, vuln: true };
+  var selected = -1, hover = -1, mouse = null, P = [], W = 0, H = 0;
+  var pad = 16, t0 = null, raf = 0, running = false;
+  var REVEAL = reduce ? 0 : 0.11;
+
+  function hexA(hex, a) {
+    var h = hex.replaceAll('#', '');
+    var r = Number.parseInt(h.slice(0, 2), 16);
+    var g = Number.parseInt(h.slice(2, 4), 16);
+    var b = Number.parseInt(h.slice(4, 6), 16);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+  }
+  function esc(s) {
+    return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+  }
+  function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+  function vis(i) { return filters[N[i].t]; }
+  function size() {
+    var r = cv.getBoundingClientRect();
+    var d = window.devicePixelRatio || 1;
+    W = r.width || 300;
+    H = r.height || 200;
+    cv.width = W * d;
+    cv.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function pos(n, now) {
+    var x = pad + n.x * (W - 2 * pad);
+    var y = pad + n.y * (H - 2 * pad);
+    if (!reduce) {
+      y += Math.sin(now / 1000 * 0.9 + n.phase) * 2;
+      x += Math.cos(now / 1000 * 0.7 + n.phase) * 1.2;
+    }
+    return [x, y];
+  }
+  function alpha(n, tt) {
+    if (reduce) { return 1; }
+    return clamp01((tt - n.order * REVEAL) / 0.4);
+  }
+  function rrect(x, y, w, h, r) {
+    if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); return; }
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function counts() {
+    if (!countEl) { return; }
+    var nn = 0, ee = 0, i;
+    for (i = 0; i < N.length; i++) {
+      if (vis(i)) { nn++; }
+    }
+    E.forEach(function (e) {
+      if (vis(e[0]) && vis(e[1])) { ee++; }
+    });
+    countEl.textContent = nn + ' nodes · ' + ee + ' links';
+  }
+  function inspect() {
+    if (!inspectEl) { return; }
+    if (selected < 0 || !vis(selected)) {
+      inspectEl.innerHTML = '<span class="wmi-hint">Click a node to inspect it.</span>';
+      return;
+    }
+    var n = N[selected], col = C[n.t], neigh = [], j;
+    for (j in adj[selected]) {
+      if (vis(+j)) { neigh.push(N[+j].label); }
+    }
+    var html = '<span class="wmi-name" style="color:' + col + '">' + esc(n.label) + '</span>';
+    html += '<span class="wmi-badge" style="background:' + hexA(col, 0.16) + ';color:' + col + '">' + esc(n.kind) + '</span>';
+    if (n.sev) {
+      html += '<span class="wmi-badge" style="background:rgba(255,107,107,0.16);color:#ff6b6b">' + esc(n.sev) + '</span>';
+    }
+    var tail = neigh.length ? ' — ' + neigh.map(esc).join(', ') : '';
+    html += '<div class="wmi-conn">Linked to <b>' + neigh.length + '</b>' + tail + '</div>';
+    inspectEl.innerHTML = html;
+  }
+  function pickHover() {
+    hover = -1;
+    if (!mouse) { return; }
+    var best = 1e9, i, d;
+    for (i = 0; i < N.length; i++) {
+      if (!vis(i)) { continue; }
+      d = Math.hypot(P[i][0] - mouse[0], P[i][1] - mouse[1]);
+      if (d < N[i].r + 9 && d < best) { best = d; hover = i; }
+    }
+  }
+  function hit(mx, my) {
+    var best = 1e9, pick = -1, i, d;
+    for (i = 0; i < N.length; i++) {
+      if (!vis(i)) { continue; }
+      d = Math.hypot(P[i][0] - mx, P[i][1] - my);
+      if (d < N[i].r + 9 && d < best) { best = d; pick = i; }
+    }
+    return pick;
+  }
+  function drawEdges(tt, focus, hi) {
+    E.forEach(function (e) {
+      if (!vis(e[0]) || !vis(e[1])) { return; }
+      var A = N[e[0]], B = N[e[1]];
+      var aa = Math.min(alpha(A, tt), alpha(B, tt));
+      if (aa <= 0) { return; }
+      var pa = P[e[0]], pb = P[e[1]];
+      var v = A.t === 'vuln' || B.t === 'vuln';
+      var on = !hi || e[0] === focus || e[1] === focus;
+      var base = v ? 0.5 : 0.28;
+      var m = on ? 1 : 0.14;
+      ctx.strokeStyle = v ? hexA('#ff8f8f', base * aa * m) : hexA('#7b78ff', base * aa * m);
+      ctx.lineWidth = (v ? 1.3 : 0.8) * (on && hi ? 1.7 : 1);
+      ctx.beginPath();
+      ctx.moveTo(pa[0], pa[1]);
+      ctx.lineTo(pb[0], pb[1]);
+      ctx.stroke();
+    });
+  }
+  function drawNode(now, tt, focus, hi, n, i) {
+    var a = alpha(n, tt);
+    if (a <= 0) { return; }
+    var p = P[i], col = C[n.t], r = n.r;
+    var on = !hi || i === focus || adj[focus][i];
+    var m = on ? 1 : 0.18;
+    if (n.t === 'vuln' && !reduce) {
+      var pu = (Math.sin(now / 1000 * 3) + 1) / 2;
+      r = n.r + pu * 1.6;
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], r + 6, 0, 7);
+      ctx.fillStyle = hexA('#ff8f8f', 0.12 * a * (0.5 + pu * 0.5) * m);
+      ctx.fill();
+    }
+    if (i === selected) {
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], r + 9, 0, 7);
+      ctx.fillStyle = hexA(col, 0.10 * a);
+      ctx.fill();
+    }
+    if (i === hover || i === selected) {
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], r + 7, 0, 7);
+      ctx.strokeStyle = hexA(col, 0.9 * a);
+      ctx.lineWidth = i === selected ? 2 : 1.5;
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(p[0], p[1], r + (n.t === 'target' ? 7 : 4), 0, 7);
+    ctx.fillStyle = hexA(col, 0.14 * a * m);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(p[0], p[1], (i === hover || i === selected) ? r + 1.5 : r, 0, 7);
+    ctx.fillStyle = hexA(col, a * (on ? 1 : 0.4));
+    ctx.fill();
+    if (n.t === 'target') {
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = hexA('#ffffff', 0.5 * a * m);
+      ctx.stroke();
+    }
+  }
+  function drawTooltip() {
+    var hn = N[hover], hp = P[hover];
+    var padX = 8, padY = 5, lh = 13;
+    ctx.font = "600 11px 'IBM Plex Mono', ui-monospace, monospace";
+    var w = Math.max(ctx.measureText(hn.label).width, 42) + padX * 2;
+    var bh = lh * 2 + padY * 2 - 1;
+    var bx = hp[0] + 12, by = hp[1] - bh - 6;
+    if (bx + w > W) { bx = hp[0] - w - 12; }
+    if (bx < 2) { bx = 2; }
+    if (by < 2) { by = hp[1] + 12; }
+    if (by + bh > H) { by = H - bh - 2; }
+    ctx.fillStyle = 'rgba(13,11,34,0.96)';
+    ctx.strokeStyle = hexA(C[hn.t], 0.6);
+    ctx.lineWidth = 1;
+    rrect(bx, by, w, bh, 6);
+    ctx.fill();
+    ctx.stroke();
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#e8e6f0';
+    ctx.fillText(hn.label, bx + padX, by + padY);
+    ctx.fillStyle = hexA(C[hn.t], 0.95);
+    ctx.font = "10px 'IBM Plex Mono', ui-monospace, monospace";
+    ctx.fillText(hn.kind, bx + padX, by + padY + lh);
+  }
+  function render(now) {
+    if (t0 === null) { t0 = now; }
+    var tt = (now - t0) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    P = N.map(function (n) { return pos(n, now); });
+    pickHover();
+    cv.style.cursor = hover >= 0 ? 'pointer' : 'default';
+    var focus = hover >= 0 ? hover : selected;
+    var hi = focus >= 0 && vis(focus);
+    drawEdges(tt, focus, hi);
+    N.forEach(function (n, i) {
+      if (vis(i)) { drawNode(now, tt, focus, hi, n, i); }
+    });
+    if (hover >= 0) { drawTooltip(); }
+  }
+  function loop(now) {
+    render(now);
+    if (running && !reduce) { raf = requestAnimationFrame(loop); }
+  }
+  function start() {
+    if (running) { return; }
+    if (reduce) { render(performance.now()); return; }
+    running = true;
+    t0 = null;
+    raf = requestAnimationFrame(loop);
+  }
+  function stop() {
+    running = false;
+    cancelAnimationFrame(raf);
+  }
+  cv.addEventListener('mousemove', function (e) {
+    var r = cv.getBoundingClientRect();
+    mouse = [e.clientX - r.left, e.clientY - r.top];
+    if (reduce) { render(performance.now()); }
+  });
+  cv.addEventListener('mouseleave', function () {
+    mouse = null;
+    if (reduce) { render(performance.now()); }
+  });
+  cv.addEventListener('click', function (e) {
+    var r = cv.getBoundingClientRect();
+    var pick = hit(e.clientX - r.left, e.clientY - r.top);
+    selected = pick === selected ? -1 : pick;
+    inspect();
+    if (reduce) { render(performance.now()); }
+  });
+  filterEls.forEach(function (el) {
+    el.addEventListener('click', function () {
+      var ty = el.dataset.type;
+      filters[ty] = !filters[ty];
+      el.classList.toggle('off', !filters[ty]);
+      if (selected >= 0 && !vis(selected)) { selected = -1; }
+      inspect();
+      counts();
+      if (reduce) { render(performance.now()); }
+    });
+  });
+  size();
+  counts();
+  inspect();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { start(); } else { stop(); } });
+    }, { threshold: 0 }).observe(cv);
+  } else {
+    start();
+  }
+  window.addEventListener('resize', function () {
+    size();
+    if (reduce) { render(performance.now()); }
+  });
+})();
+</script>
+</body>
+</html>

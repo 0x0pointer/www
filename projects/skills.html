@@ -71,11 +71,11 @@
           <div class="panel">
             <h5>Command palette <span style="color:var(--muted);text-transform:none;letter-spacing:0;">&mdash; click a skill</span></h5>
             <div class="cmd-list" id="cmdList">
-              <div class="cmd active" role="button" tabindex="0" data-name="/pentester" data-desc="Full autonomous engagement — recon, exploitation, proof, and report — chaining into other skills as it finds things.">/pentester</div>
-              <div class="cmd" role="button" tabindex="0" data-name="/codebase" data-desc="White-box source review mapped to OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</div>
-              <div class="cmd" role="button" tabindex="0" data-name="/ai-redteam" data-desc="Red-teams LLM apps against the OWASP LLM Top 10 and AITG — prompt injection, jailbreaks, data exfiltration.">/ai-redteam</div>
-              <div class="cmd" role="button" tabindex="0" data-name="/threat-modeling" data-desc="PASTA + STRIDE threat model — component map, data-flow diagram, attack tree, and prioritized risk register.">/threat-modeling</div>
-              <div class="cmd" role="button" tabindex="0" data-name="/remediate" data-desc="Generates a patch for a finding, then re-runs the check to prove the vulnerability is gone.">/remediate</div>
+              <button type="button" class="cmd active" data-name="/pentester" data-desc="Full autonomous engagement — recon, exploitation, proof, and report — chaining into other skills as it finds things.">/pentester</button>
+              <button type="button" class="cmd" data-name="/codebase" data-desc="White-box source review mapped to OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</button>
+              <button type="button" class="cmd" data-name="/ai-redteam" data-desc="Red-teams LLM apps against the OWASP LLM Top 10 and AITG — prompt injection, jailbreaks, data exfiltration.">/ai-redteam</button>
+              <button type="button" class="cmd" data-name="/threat-modeling" data-desc="PASTA + STRIDE threat model — component map, data-flow diagram, attack tree, and prioritized risk register.">/threat-modeling</button>
+              <button type="button" class="cmd" data-name="/remediate" data-desc="Generates a patch for a finding, then re-runs the check to prove the vulnerability is gone.">/remediate</button>
             </div>
           </div>
           <div class="panel skill-info">
@@ -140,51 +140,51 @@
       <div class="skill-cat">
         <h4>Penetration testing</h4>
         <div class="chip-row">
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Full penetration test — recon, scanning, exploitation and reporting. Auto-chains into the other skills.">/pentester</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Deep web exploitation: SQLi, XSS, SSTI, SSRF, XXE, deserialization, JWT and request-smuggling attacks.">/web-exploit</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="OWASP API Top 10 across REST, GraphQL, gRPC and SOAP — BOLA/IDOR, auth, mass assignment, BFLA.">/api-security</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Internal network assessment — VLAN hopping, LLMNR/NBT-NS abuse, segmentation checks, SNMP and NFS.">/network-assess</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Post-exploitation — privilege escalation, persistence, credential harvesting and pivot prep (Linux &amp; Windows).">/post-exploit</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="AD &amp; network lateral movement — pass-the-hash/ticket, Kerberoasting, NTLM relay, delegation and RBCD.">/lateral-movement</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Validate and run exploits with the Metasploit Framework in a dedicated container.">/metasploit</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate reverse-shell payloads and manage listeners — encoded payloads and shell stabilization.">/reverse-shell</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Tunnel and pivot through compromised hosts to reach segmented internal networks.">/pivot-tunnel</span>
+          <button type="button" class="lib-cmd" data-desc="Full penetration test — recon, scanning, exploitation and reporting. Auto-chains into the other skills.">/pentester</button>
+          <button type="button" class="lib-cmd" data-desc="Deep web exploitation: SQLi, XSS, SSTI, SSRF, XXE, deserialization, JWT and request-smuggling attacks.">/web-exploit</button>
+          <button type="button" class="lib-cmd" data-desc="OWASP API Top 10 across REST, GraphQL, gRPC and SOAP — BOLA/IDOR, auth, mass assignment, BFLA.">/api-security</button>
+          <button type="button" class="lib-cmd" data-desc="Internal network assessment — VLAN hopping, LLMNR/NBT-NS abuse, segmentation checks, SNMP and NFS.">/network-assess</button>
+          <button type="button" class="lib-cmd" data-desc="Post-exploitation — privilege escalation, persistence, credential harvesting and pivot prep (Linux &amp; Windows).">/post-exploit</button>
+          <button type="button" class="lib-cmd" data-desc="AD &amp; network lateral movement — pass-the-hash/ticket, Kerberoasting, NTLM relay, delegation and RBCD.">/lateral-movement</button>
+          <button type="button" class="lib-cmd" data-desc="Validate and run exploits with the Metasploit Framework in a dedicated container.">/metasploit</button>
+          <button type="button" class="lib-cmd" data-desc="Generate reverse-shell payloads and manage listeners — encoded payloads and shell stabilization.">/reverse-shell</button>
+          <button type="button" class="lib-cmd" data-desc="Tunnel and pivot through compromised hosts to reach segmented internal networks.">/pivot-tunnel</button>
         </div>
       </div>
       <div class="skill-cat">
         <h4>Cloud, infrastructure &amp; identity</h4>
         <div class="chip-row">
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Cloud posture for AWS, Azure &amp; GCP — IAM privilege escalation, public storage, serverless, IMDS.">/cloud-security</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Container &amp; Kubernetes security — escapes, RBAC, exposed API server/etcd, image secrets, CIS.">/container-k8s-security</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Active Directory audit — trusts, GPOs, ACL abuse, ADCS (ESC1-8) and delegation, via MITRE ATT&amp;CK.">/ad-assessment</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Email infrastructure — SPF, DKIM, DMARC, open relay, spoofing resilience and MTA-STS.">/email-security</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="TLS/SSL configuration — protocols, ciphers, cert chain, POODLE/BEAST/Heartbleed/ROBOT and HSTS.">/ssl-tls-audit</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Authentication testing — brute-force, spraying, default creds, MFA bypass, OAuth/OIDC, token entropy.">/credential-audit</span>
+          <button type="button" class="lib-cmd" data-desc="Cloud posture for AWS, Azure &amp; GCP — IAM privilege escalation, public storage, serverless, IMDS.">/cloud-security</button>
+          <button type="button" class="lib-cmd" data-desc="Container &amp; Kubernetes security — escapes, RBAC, exposed API server/etcd, image secrets, CIS.">/container-k8s-security</button>
+          <button type="button" class="lib-cmd" data-desc="Active Directory audit — trusts, GPOs, ACL abuse, ADCS (ESC1-8) and delegation, via MITRE ATT&amp;CK.">/ad-assessment</button>
+          <button type="button" class="lib-cmd" data-desc="Email infrastructure — SPF, DKIM, DMARC, open relay, spoofing resilience and MTA-STS.">/email-security</button>
+          <button type="button" class="lib-cmd" data-desc="TLS/SSL configuration — protocols, ciphers, cert chain, POODLE/BEAST/Heartbleed/ROBOT and HSTS.">/ssl-tls-audit</button>
+          <button type="button" class="lib-cmd" data-desc="Authentication testing — brute-force, spraying, default creds, MFA bypass, OAuth/OIDC, token entropy.">/credential-audit</button>
         </div>
       </div>
       <div class="skill-cat">
         <h4>Recon &amp; analysis</h4>
         <div class="chip-row">
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Passive recon via MITRE ATT&amp;CK — email harvesting, subdomain takeover, cert transparency, Shodan.">/osint</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="PASTA + STRIDE — component map, data-flow diagram, attack tree and prioritized risk register.">/threat-modeling</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="White-box source review against OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Analyze CVEs in dependencies — trace vulnerable code paths and generate Burp-ready PoCs.">/analyze-cve</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Triage an Aikido findings CSV against the codebase — verdict each as keep-open or close.">/aikido-triage</span>
+          <button type="button" class="lib-cmd" data-desc="Passive recon via MITRE ATT&amp;CK — email harvesting, subdomain takeover, cert transparency, Shodan.">/osint</button>
+          <button type="button" class="lib-cmd" data-desc="PASTA + STRIDE — component map, data-flow diagram, attack tree and prioritized risk register.">/threat-modeling</button>
+          <button type="button" class="lib-cmd" data-desc="White-box source review against OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</button>
+          <button type="button" class="lib-cmd" data-desc="Analyze CVEs in dependencies — trace vulnerable code paths and generate Burp-ready PoCs.">/analyze-cve</button>
+          <button type="button" class="lib-cmd" data-desc="Triage an Aikido findings CSV against the codebase — verdict each as keep-open or close.">/aikido-triage</button>
         </div>
       </div>
       <div class="skill-cat">
         <h4>AI safety &amp; red-team</h4>
         <div class="chip-row">
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="OWASP LLM Top 10 + AITG red-team — prompt injection, jailbreaks, data extraction, MCP testing.">/ai-redteam</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate NeMo Guardrails Colang files from a plain-language description of a bot's policy.">/colang-gen</span>
+          <button type="button" class="lib-cmd" data-desc="OWASP LLM Top 10 + AITG red-team — prompt injection, jailbreaks, data extraction, MCP testing.">/ai-redteam</button>
+          <button type="button" class="lib-cmd" data-desc="Generate NeMo Guardrails Colang files from a plain-language description of a bot's policy.">/colang-gen</button>
         </div>
       </div>
       <div class="skill-cat">
         <h4>Reporting &amp; remediation</h4>
         <div class="chip-row">
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Generate a patch for a finding, then re-run the check to prove it's fixed.">/remediate</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Format confirmed findings into copy-pasteable GitHub issue markdown.">/gh-export</span>
-          <span class="lib-cmd" role="button" tabindex="0" data-desc="Build CVE request packages — MITRE form, GHSA draft and disclosure report — from findings.">/request-cves</span>
+          <button type="button" class="lib-cmd" data-desc="Generate a patch for a finding, then re-run the check to prove it's fixed.">/remediate</button>
+          <button type="button" class="lib-cmd" data-desc="Format confirmed findings into copy-pasteable GitHub issue markdown.">/gh-export</button>
+          <button type="button" class="lib-cmd" data-desc="Build CVE request packages — MITRE form, GHSA draft and disclosure report — from findings.">/request-cves</button>
         </div>
       </div>
     </div>

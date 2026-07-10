@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <!--
-  ARTICLE TEMPLATE — how to publish a new post:
+  Article template. To publish a new post:
   1. Copy this file:  cp _template.html my-article-slug.html
-  2. Replace every TODO below (title, description, date, tags, content).
-  3. Add a matching card at the TOP of the post list in blog/index.html.
+  2. Replace every placeholder below (title, description, date, tags, content).
+  3. Add a matching card at the top of the post list in blog/index.html.
+  Available body elements: headings, paragraphs, "strong" and "code" inline,
+  "pre"+"code" for code blocks, "blockquote" for quotes, and "ul"/"li" for lists.
 -->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TODO: Article title — NullPointer</title>
-<meta name="description" content="TODO: One-sentence summary for search engines and link previews.">
+<title>Article title — NullPointer</title>
+<meta name="description" content="One-sentence summary for search engines and link previews.">
 <link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,35 +53,20 @@
   <a href="index.html" class="article-back">&larr; All articles</a>
 
   <div class="article-meta">
-    <span class="post-card-date">TODO: YYYY-MM-DD</span>
-    <!-- Green tag: <span class="post-tag">Tag</span> · Purple tag: <span class="post-tag tag-purple">Tag</span> -->
-    <span class="post-tag">TODO: Tag</span>
+    <span class="post-card-date">YYYY-MM-DD</span>
+    <span class="post-tag">Tag</span>
+    <span class="post-tag tag-purple">Second tag</span>
   </div>
 
-  <h1>TODO: Article title</h1>
+  <h1>Article title</h1>
 
   <p class="article-lede">
-    TODO: A one-to-three sentence lede that hooks the reader and summarizes the article.
+    A one-to-three sentence lede that hooks the reader and summarizes the article.
   </p>
 
   <div class="article-body">
-    <h2>TODO: First section heading</h2>
-    <p>TODO: Body text. Use <strong>strong</strong> for emphasis, <code>inline code</code> for identifiers, and links like <a href="https://example.com">this</a>.</p>
-
-    <!-- Code block:
-    <pre><code>$ nmap -sV target.example.com</code></pre>
-    -->
-
-    <!-- Quote:
-    <blockquote>A pull quote or citation goes here.</blockquote>
-    -->
-
-    <!-- List:
-    <ul>
-      <li>First point</li>
-      <li>Second point</li>
-    </ul>
-    -->
+    <h2>First section heading</h2>
+    <p>Body text. Use <strong>strong</strong> for emphasis, <code>inline code</code> for identifiers, and links like <a href="https://example.com">this</a>. Add more headings, lists, quotes, or code blocks as needed.</p>
   </div>
 
   <div class="article-footer">

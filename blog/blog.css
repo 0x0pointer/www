@@ -565,7 +565,7 @@ footer p {
 .nav-dd { position: relative; }
 .nav-caret { font-size: 0.7em; opacity: 0.7; transition: transform 0.25s ease; display: inline-block; }
 .nav-dd:hover .nav-caret { transform: rotate(180deg); }
-.nav-dd-menu { list-style:none; position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(8px); min-width:170px; margin-top:10px; padding:0.4rem; display:flex; flex-direction:column; gap:0.1rem; background:rgba(19,17,46,0.97); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:8px; box-shadow:0 14px 34px rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:opacity 0.2s ease, transform 0.2s ease; z-index:1001; }
+.nav-dd-menu { list-style:none; position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(8px); min-width:170px; margin-top:6px; padding:0.4rem; display:flex; flex-direction:column; gap:0.1rem; background:rgba(19,17,46,0.97); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:8px; box-shadow:0 14px 34px rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:opacity 0.2s ease, transform 0.2s ease; z-index:1001; }
 .nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
 .nav-dd-menu a { display:block; padding:0.5rem 0.75rem; border-radius:5px; font-size:0.8rem; letter-spacing:0; text-transform:none; white-space:nowrap; color:var(--white); }
 .nav-dd-menu a::after { display:none; }
@@ -578,5 +578,4 @@ footer p {
 
 /* ── Dropdown hover-bridge fix (prevents the menu closing in the gap) ── */
 .nav-dd::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 210px; height: 14px; }
-.nav-dd-menu { margin-top: 6px; }
 @media (max-width: 640px) { .nav-dd::before { display: none; } .nav-dd-menu { margin-top: 0.25rem; } }

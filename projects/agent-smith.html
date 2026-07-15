@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agent-Smith — AI Pentest Agent — NullPointer</title>
-<meta name="description" content="Agent-Smith is an autonomous AI pentest agent. Skills teach the methodology, the LLM invents the attack — self-chaining across web, cloud, AD, and AI red-team, all sandboxed. It builds a live world model as it scans.">
+<meta name="description" content="Agent-Smith is an autonomous AI pentest agent. Skills teach the methodology, the LLM invents the attack — self-chaining across web, mobile, cloud, AD, and AI red-team, all sandboxed. It builds a live world model as it scans.">
 <link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
     <div class="badges"><span class="arsenal-badge off">Offensive</span><span class="arsenal-badge kind">AI Pentest Agent</span></div>
     <p class="ph-tagline">Built for testers who want to think, not babysit.</p>
     <h1>Agent-Smith</h1>
-    <p class="ph-lede">An autonomous pentest agent that thinks like an attacker. Point it at a URL, a repo, or a network and it runs the whole engagement itself&mdash;recon, exploitation, proof, remediation, and reporting&mdash;chaining 25+ specialized skills without a human stitching the steps together.</p>
+    <p class="ph-lede">An autonomous pentest agent that thinks like an attacker. Point it at a URL, a repo, a mobile app, or a network and it runs the whole engagement itself&mdash;recon, exploitation, proof, remediation, and reporting&mdash;chaining 35+ specialized skills without a human stitching the steps together.</p>
     <div class="ph-actions">
       <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener" class="btn btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
@@ -118,7 +118,7 @@
       <div class="feature-card reveal">
         <div class="fc-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
         <h4>Every surface</h4>
-        <p>25+ specialized skills spanning web, network, cloud, Active Directory, AI red-team, white-box source review, and threat modeling.</p>
+        <p>35+ specialized skills spanning web, mobile (Android/iOS), network, cloud, Active Directory, AI red-team, white-box source review, and threat modeling.</p>
       </div>
       <div class="feature-card reveal">
         <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
@@ -162,6 +162,7 @@
               <button type="button" class="req" data-id="code"><span class="tag">Code</span><span>github.com/acme/api</span></button>
               <button type="button" class="req" data-id="net"><span class="tag">Network</span><span>10.0.0.0/24 (internal)</span></button>
               <button type="button" class="req" data-id="ai"><span class="tag">AI</span><span>chat.example.com (LLM app)</span></button>
+              <button type="button" class="req" data-id="mobile"><span class="tag">Mobile</span><span>acme-banking.apk</span></button>
               <button type="button" class="req" data-id="cloud"><span class="tag">Cloud</span><span>AWS account #4192</span></button>
             </div>
           </div>
@@ -334,6 +335,16 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
         '<div><span class="bad">✗ LLM01</span> <span class="s">prompt injection via tool output</span></div>',
         '<div><span class="bad">✗ LLM02</span> <span class="s">leaks DB connection string</span></div>',
         '<div><span class="t">→ recommend</span> <span class="k">Seraph</span> <span class="s">as guardrail proxy</span></div>'
+      ]
+    },
+    mobile: {
+      surface: 'Mobile app (Android)', chain: '/pentester → /android-security → /api-security', result: '2 high · MASVS gaps',
+      log: [
+        '<div><span class="k">$</span> <span class="s">/pentester scan acme-banking.apk</span></div>',
+        '<div><span class="t">[android-security]</span> <span class="s">MobSF · MASVS static pass</span></div>',
+        '<div><span class="bad">✗ hardcoded API key</span> <span class="s">+ cleartext storage (MASVS-STORAGE)</span></div>',
+        '<div><span class="t">[frida]</span> <span class="bad">✗ SSL pinning bypassed</span> <span class="s">→ live traffic</span></div>',
+        '<div><span class="t">→ auto-chain</span> <span class="k">/api-security</span> <span class="bad">✗ BOLA</span> <span class="s">on /accounts/{id}</span></div>'
       ]
     },
     cloud: {

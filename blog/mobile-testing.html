@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent-Smith goes mobile: Android & iOS pentesting — NullPointer</title>
+<meta name="description" content="Point Agent-Smith at an APK, an IPA, or a mobile source tree and it runs the whole MASVS/MASTG methodology itself — static and dynamic — then tests the backend API behind it.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="../projects/agent-smith.html">Agent-Smith</a></li>
+          <li><a href="../projects/seraph.html">Seraph</a></li>
+          <li><a href="../projects/skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Article ── -->
+<article class="article">
+  <a href="index.html" class="article-back">&larr; All articles</a>
+
+  <div class="article-meta">
+    <span class="post-card-date">2026-07-15</span>
+    <span class="post-tag">Offensive</span>
+    <span class="post-tag tag-purple">Mobile</span>
+  </div>
+
+  <h1>Agent-Smith goes mobile: Android &amp; iOS pentesting</h1>
+
+  <p class="article-lede">
+    A mobile app is two targets in a trench coat: the binary on the device and the API behind it. Agent-Smith now tests both. Point it at an <code>.apk</code>, an <code>.ipa</code>, or a mobile source tree and it runs the whole <strong>MASVS/MASTG</strong> methodology itself&mdash;static and dynamic&mdash;then follows the traffic into the backend.
+  </p>
+
+  <div class="article-body">
+    <h2>Same brain, a new surface</h2>
+    <p>
+      Nothing about the approach changes: the skills teach the <em>methodology</em>, the model invents the attack, and the chain assembles itself. What&rsquo;s new is where you can point it. <code>/android-security</code> and <code>/ios-security</code> bring mobile into the same self-chaining engagement that already covers web, network, cloud, AD, and AI red-team&mdash;mapped to the <strong>OWASP Mobile Application Security Verification Standard (MASVS)</strong> and the <strong>Mobile Application Security Testing Guide (MASTG)</strong>, the way the web skills map to ASVS.
+    </p>
+
+    <h2>Static analysis&mdash;no device required</h2>
+    <p>
+      Hand Smith a built artifact or the source and it pulls the app apart before anything ever runs:
+    </p>
+    <ul>
+      <li><strong>MobSF</strong> for a MASVS-mapped static report on the APK/IPA.</li>
+      <li><strong>jadx</strong> / <strong>apktool</strong> to decompile Android; <strong>class-dump</strong> to recover Objective-C headers on iOS.</li>
+      <li><strong>mobsfscan</strong> as a mobile-aware SAST pass over the source tree.</li>
+    </ul>
+    <p>
+      That surfaces the usual suspects&mdash;hardcoded secrets and API keys, insecure data storage, exported components and unprotected deep links, weak or home-rolled crypto, missing certificate pinning, and debuggable/backup-enabled builds&mdash;each tracked as a closable MASVS control, not a wall of scanner text.
+    </p>
+
+    <h2>Dynamic analysis&mdash;on a real device</h2>
+    <p>
+      Static tells you what <em>could</em> break; dynamic proves it. On an operator-provided rooted or jailbroken device (Smith opens a non-blocking setup gate and verifies the hookable runtime before it relies on it), it drives <strong>Frida</strong> and <strong>objection</strong> to:
+    </p>
+    <ul>
+      <li>bypass SSL pinning and watch the real traffic,</li>
+      <li>read the Keychain / Keystore and on-disk state at runtime,</li>
+      <li>hook auth and jailbreak/root-detection logic, and</li>
+      <li>abuse IPC, intents, and deep links from a hostile app&rsquo;s perspective.</li>
+    </ul>
+
+    <h2>Then it follows the traffic</h2>
+    <p>
+      Here&rsquo;s where being <em>one</em> agent pays off. The moment Smith sees the API the app talks to, it chains into <code>/api-security</code> and <code>/web-exploit</code> and tests that backend too&mdash;auth, BOLA/IDOR, injection, business logic&mdash;linking every mobile finding and every API finding into the same world model. The client and the server get tested in one run, by the same brain, with shared context.
+    </p>
+
+    <h2>Coverage you can prove</h2>
+    <p>
+      <code>/masvs-checklist</code> tracks the engagement against the MASVS controls the same way the coverage matrix tracks endpoint&#215;technique for web&mdash;so &ldquo;done&rdquo; is an honest, auditable number, and <code>/mobile-pentest-plan</code> scopes the work up front. Static runs anywhere; only the dynamic phase needs a device, and Smith is explicit about which controls it could and couldn&rsquo;t reach.
+    </p>
+
+    <p>
+      The mobile skills are open source alongside the rest on the <a href="https://github.com/0x0pointer/agent-smith" target="_blank" rel="noopener">Agent-Smith repo</a>. Point it at an app and see what falls out.
+    </p>
+  </div>
+
+  <div class="article-footer">
+    <a href="index.html" class="article-back">&larr; All articles</a>
+  </div>
+</article>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+</script>
+</body>
+</html>

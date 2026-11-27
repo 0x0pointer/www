@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construct — PR Security Scanner — NullPointer</title>
+<meta name="description" content="Construct scans every pull request in your GitHub org with a chain of sandboxed LLM agents, then replays each surviving bug against the PR's own app with no agent in the loop. Findings arrive already proven.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="projects.css">
+
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="agent-smith.html">Agent-Smith</a></li>
+          <li><a href="construct.html">Construct</a></li>
+          <li><a href="source.html">Source</a></li>
+          <li><a href="skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="../blog/index.html">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Page hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="badges"><span class="arsenal-badge def">Code Intelligence</span><span class="arsenal-badge kind">PR Security Scanner</span></div>
+    <p class="ph-tagline">Only the replay counts as evidence.</p>
+    <h1>Construct</h1>
+    <p class="ph-lede">Construct scans every pull request in your GitHub org for security bugs. A GitHub App sends PR events to one central service, which runs a short chain of agents on the change: triage, hypothesise, static verify, skeptic, dynamic. Bugs that survive are replayed against the PR&rsquo;s own app, so a finding arrives already proven. Dev teams change nothing in their CI.</p>
+    <div class="ph-actions">
+      <a href="https://github.com/0x0pointer/Construct" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Deploy on GitHub
+      </a>
+      <a href="../index.html#projects" class="btn btn-ghost">&larr; All projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live showcase ── -->
+<section>
+  <div class="container">
+    <div class="showcase reveal">
+      <div class="console def">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>construct &middot; scan #42 &middot; acme/api PR 318</span>
+          <span class="live"><i></i>SCANNING</span>
+        </div>
+        <div class="console-body">
+          <div class="panel">
+            <h5>Scan pipeline</h5>
+            <div class="tier-flow">
+              <div class="tier-step"><span class="ts-dot"></span>Triage <b class="verdict dim">FULL</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Hypothesise <b class="verdict dim">4 HYPOTHESES</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Static verify <b class="verdict dim">2 CONFIRMED</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Skeptic <b class="verdict dim">1 REFUTED</b></div>
+              <div class="tier-step block"><span class="ts-dot"></span>Dynamic <b class="verdict ok">REPRODUCED</b></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h5>Replays &middot; H2 SQL injection</h5>
+            <div class="tier-flow">
+              <div class="tier-step"><span class="ts-dot"></span>PR head &middot; run 1 <b class="verdict bad">FIRED</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>PR head &middot; run 2 <b class="verdict bad">FIRED</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Base branch <b class="verdict dim">DID NOT FIRE</b></div>
+              <div class="tier-step block"><span class="ts-dot"></span>Verdict <b class="verdict ok">INTRODUCED BY THIS PR</b></div>
+            </div>
+          </div>
+          <div class="log">
+            <div><span class="t">09:14:02</span> <span class="k">[triage]</span> <span class="s">full &mdash; new endpoint reads a query parameter</span></div>
+            <div><span class="t">09:15:40</span> <span class="k">[static_verify]</span> <span class="ok">&#10003; citations match</span> <span class="s">reports/views.py:88</span></div>
+            <div><span class="t">09:16:11</span> <span class="k">[skeptic]</span> <span class="s">H3 dropped &mdash; value is cast to int upstream</span></div>
+            <div><span class="t">09:19:27</span> <span class="k">[dynamic]</span> <span class="s">env up: app + postgres + mock login</span></div>
+            <div><span class="t">09:21:03</span> <span class="k">[replay]</span> <span class="bad">&#10007; reproduced</span> <span class="s">2/2 on PR, 0/1 on base &rarr; SARIF</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">Every stage, hypothesis, and replay lands on a live timeline you can follow as the scan runs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Capabilities ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What it does</p>
+      <h2 class="section-title">A scanner that has to prove it.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="9" r="2.5"/><path d="M6 8.5v7M18 11.5c0 4-6 2-9.5 5"/></svg></div>
+        <h4>Nothing to install per repo</h4>
+        <p>One GitHub App, read-only permissions, one central service. Every PR in the org is scanned on open and on push. Findings come out as SARIF and on an AppSec dashboard; nothing is written back to the PR.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h4>Citations checked by code</h4>
+        <p>Every <code>file:line</code> and quote an agent cites is matched against the real source after the stage ends. A citation that does not match drops the hypothesis, so a hallucinated location never reaches you.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+        <h4>Agent-free replay</h4>
+        <p>The agent writes a declarative PoC. Code then replays it in fresh environments, twice on the PR and once on the base branch, with fresh canaries each time. An oracle never passes on a value the PoC itself sent.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+        <h4>Isolated by construction</h4>
+        <p>Each agent runs in its own container on a per-scan internal network. The running app can reach mock services and a DNS sink that records everything else. Only a small launcher service holds the Docker socket.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Sandbox ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Sandbox</p>
+      <h2 class="section-title">Three hypotheses, three labels.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">A finding gets exactly one label, and the label says how much proof stands behind it. Pick a hypothesis to see where it ends up and why.</p>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console def">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>construct &middot; sandbox</span>
+          <span class="live"><i></i>LIVE</span>
+        </div>
+        <div class="console-body">
+          <div class="panel">
+            <h5>Pick a hypothesis &mdash; click one</h5>
+            <div class="req-list" id="hypList">
+              <button type="button" class="req active" data-id="sqli"><span class="tag atk">H1</span><span>SQL injection in the new /reports endpoint</span></button>
+              <button type="button" class="req" data-id="authz"><span class="tag atk">H2</span><span>Missing tenant check on invoice export</span></button>
+              <button type="button" class="req" data-id="ssrf"><span class="tag atk">H3</span><span>SSRF through the webhook URL field</span></button>
+            </div>
+          </div>
+          <div class="panel">
+            <h5>Outcome</h5>
+            <div class="eng">
+              <div class="eng-row"><span class="eng-k">Label</span><span class="eng-v" id="hypLabel">reproduced</span></div>
+              <div class="eng-row"><span class="eng-k">Means</span><span class="eng-v" id="hypMeans">Every replay on the PR fired through the app&rsquo;s real HTTP entry point.</span></div>
+              <div class="eng-row"><span class="eng-k">Introduced by the PR?</span><span class="eng-v" id="hypBase">Yes &mdash; the base replay did not fire.</span></div>
+            </div>
+          </div>
+          <div class="log" id="hypLog"></div>
+        </div>
+      </div>
+      <p class="showcase-cap">reproduced &middot; likely &middot; inconclusive &mdash; and an inconclusive always carries its reason.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Models and harnesses ── -->
+<section>
+  <div class="container">
+    <div class="reveal" style="max-width:62ch;">
+      <p class="section-label">One policy file</p>
+      <h2 class="section-title">Any harness, any model, per stage.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">AppSec owns a central <code style="font-family:'IBM Plex Mono',monospace;color:var(--green);">policy.yaml</code> that picks the agent harness, model, time limit, and dollar budget for each stage; repos cannot override it from a branch. Harnesses only ever see model aliases and a short-lived key minted per task, and the judge runs on a different model family from the agent it reviews to reduce correlated mistakes. The methodology itself is nine harness-neutral skills, measured against a labelled eval corpus on every change.</p>
+    </div>
+    <div class="chip-row reveal">
+      <span>Claude Code</span><span>Codex</span><span>OpenCode</span><span>pi</span><span>LiteLLM gateway</span><span>SARIF</span><span>Postgres</span><span>Docker Compose</span><span>OIDC dashboard</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Where it fits ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In the loop</p>
+      <h2 class="section-title">The intelligence half of the loop.</h2>
+    </div>
+    <div class="b-modes reveal" style="margin-top:2rem;">
+      <div class="tglcard">
+        <div class="tgl on"></div>
+        <div><h4>Today</h4><p>Construct reads each change, forms hypotheses about impact and abuse cases, verifies them against the code, and proves the survivors in an ephemeral environment built from the PR branch.</p></div>
+      </div>
+      <div class="tglcard">
+        <div class="tgl exp"></div>
+        <div><h4>Next</h4><p>Its hypotheses, new routes, and trust-boundary changes flow into <a href="source.html" style="color:var(--green);">Source</a>, where <a href="agent-smith.html" style="color:var(--green);">Agent-Smith</a> retrieves them as prioritized targets for runtime testing against staging.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Quickstart ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Quickstart</p>
+      <h2 class="section-title">Run the tests, then scan a PR.</h2>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>terminal</span></div>
+        <div class="console-simple">
+          <div class="log">
+            <div><span class="k">$</span> <span class="s">git clone git@github.com:0x0pointer/Construct.git &amp;&amp; cd Construct</span></div>
+            <div><span class="k">$</span> <span class="s">python3.12 -m venv .venv &amp;&amp; .venv/bin/pip install -e '.[dev]'</span></div>
+            <div><span class="k">$</span> <span class="s">make test &amp;&amp; make test-e2e</span> <span class="t"># the full pipeline, with a scripted agent</span></div>
+            <div>&nbsp;</div>
+            <div><span class="k">$</span> <span class="s">cp .env.example .env &amp;&amp; make images &amp;&amp; make up</span> <span class="t"># the whole org, on one VM</span></div>
+            <div>&nbsp;</div>
+            <div><span class="ok">&#10003;</span> <span class="s">open a PR and follow the scan with </span><span class="k">prsec-trace &lt;scan id&gt; --follow</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">Three paths: run the tests, scan a real PR from your laptop, or deploy for the whole org.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Put Construct on your pull requests.</h2>
+      <p>Open source under GPL v3.0 and self-hosted. Your code goes to the model provider you choose and nowhere else.</p>
+      <div class="ph-actions">
+        <a href="https://github.com/0x0pointer/Construct" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+        <a href="../index.html#pipeline" class="btn btn-ghost">See the full loop</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// sandbox — pick a hypothesis, see its label
+(function(){
+  const list = document.getElementById('hypList');
+  if (!list) return;
+  const labelEl = document.getElementById('hypLabel');
+  const meansEl = document.getElementById('hypMeans');
+  const baseEl = document.getElementById('hypBase');
+  const logEl = document.getElementById('hypLog');
+  const HYP = {
+    sqli: {
+      label: 'reproduced', means: 'Every replay on the PR fired through the app’s real HTTP entry point.',
+      base: 'Yes — the base replay did not fire.',
+      log: [
+        '<div><span class="t">[hypothesise]</span> <span class="s">query param reaches a raw SQL string · reports/views.py:88</span></div>',
+        '<div><span class="t">[static_verify]</span> <span class="ok">✓ confirmed</span> <span class="s">no parameter binding on the path</span></div>',
+        '<div><span class="t">[skeptic]</span> <span class="s">could not refute</span></div>',
+        '<div><span class="t">[dynamic]</span> <span class="s">poc.yaml: one GET, oracle on a fresh canary in the response</span></div>',
+        '<div><span class="t">[replay]</span> <span class="bad">✗ fired 2/2 on PR</span> <span class="s">· 0/1 on base</span></div>'
+      ]
+    },
+    authz: {
+      label: 'likely', means: 'The static checks confirmed it and the skeptic did not refute it, but no replay went through the real entry point.',
+      base: 'Not determined without a full replay.',
+      log: [
+        '<div><span class="t">[hypothesise]</span> <span class="s">export handler loads an invoice by id, no tenant filter</span></div>',
+        '<div><span class="t">[static_verify]</span> <span class="ok">✓ confirmed</span> <span class="s">sibling handlers call the tenant scope helper, this one does not</span></div>',
+        '<div><span class="t">[skeptic]</span> <span class="s">could not refute</span></div>',
+        '<div><span class="t">[dynamic]</span> <span class="s">PoC fired only by calling the handler directly</span></div>',
+        '<div><span style="color:#ffb86c">⚠ likely</span> <span class="s">— reviewed by AppSec on the dashboard</span></div>'
+      ]
+    },
+    ssrf: {
+      label: 'inconclusive', means: 'Everything else. The reason is always recorded.',
+      base: 'Not applicable.',
+      log: [
+        '<div><span class="t">[hypothesise]</span> <span class="s">user-supplied webhook URL is fetched server-side</span></div>',
+        '<div><span class="t">[static_verify]</span> <span class="ok">✓ confirmed</span> <span class="s">no allow-list on the host</span></div>',
+        '<div><span class="t">[dynamic]</span> <span class="s">sink recorded no outbound request in either replay</span></div>',
+        '<div><span class="t">[replay]</span> <span class="s">0/2 on PR</span></div>',
+        '<div><span class="t">inconclusive</span> <span class="s">— reason: oracle did not fire; the fetch runs in a worker the env did not start</span></div>'
+      ]
+    }
+  };
+  const items = list.querySelectorAll('.req');
+  function select(el){
+    const d = HYP[el.dataset.id];
+    if (!d) return;
+    items.forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+    labelEl.textContent = d.label;
+    meansEl.textContent = d.means;
+    baseEl.textContent = d.base;
+    logEl.innerHTML = d.log.join('');
+  }
+  items.forEach(el => el.addEventListener('click', () => select(el)));
+  select(items[0]);
+})();
+</script>
+</body>
+</html>

@@ -579,11 +579,6 @@ section {
   border: 2px solid rgba(91, 242, 155, 0.25);
 }
 
-.pipeline-node-icon.node-seraph {
-  background: var(--purple-dim);
-  border: 2px solid rgba(123, 120, 255, 0.25);
-}
-
 .pipeline-node-icon.node-skills {
   background: rgba(91, 242, 155, 0.08);
   border: 2px solid rgba(91, 242, 155, 0.15);
@@ -815,7 +810,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 @media (max-width:560px){.console-body{grid-template-columns:1fr}.metrics{flex-wrap:wrap}}
 @media (prefers-reduced-motion:reduce){.console-bar .live i{animation:none!important}}
 
-/* ═══ Console variants for Seraph (defensive) & Skills (methodology) ═══ */
+/* ═══ Console variants: purple (Construct) & Skills (methodology) ═══ */
 .b-grid.rev{grid-template-columns:1.15fr 0.85fr}
 .b-grid+.b-grid{margin-top:3.5rem}
 .arsenal-badge.def{background:var(--purple-dim);color:var(--purple)}
@@ -833,6 +828,9 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .tier-step.block{color:var(--white-bright)}
 .tier-step .verdict{margin-left:auto;font-size:.64rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;letter-spacing:.04em}
 .verdict.bad{background:#3a1922;color:#ff9d9d}
+.verdict.ok{background:var(--green-dim);color:var(--green)}
+.verdict.dim{background:rgba(255,255,255,.05);color:var(--muted);font-weight:600}
+.verdict.warn{background:rgba(255,184,108,.14);color:#ffb86c}
 
 /* command palette */
 .cmd-list{display:flex;flex-direction:column;gap:.3rem}
@@ -863,7 +861,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .blog-teaser-all:hover{color:var(--white-bright)}
 @media (max-width:560px){.blog-teaser-card{grid-template-columns:1fr}.blog-teaser-ic{display:none}}
 
-/* ═══ Projects: consistent vertical rhythm + simplified Seraph/Skills panels ═══ */
+/* ═══ Projects: consistent vertical rhythm + simplified panels ═══ */
 .projects-rows{display:flex;flex-direction:column;gap:4.5rem;margin-top:3.5rem}
 .projects-rows .b-grid{margin-top:0}                 /* one gap value drives spacing */
 .b-grid.simple,.b-grid.rev.simple{grid-template-columns:1fr 1fr;align-items:center}
@@ -944,7 +942,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .lib-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; font-weight: 600; color: var(--green); }
 .lib-text { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-top: 0.4rem; }
 
-/* ── Seraph sandbox: request buttons ── */
+/* ── Sandbox: request buttons ── */
 .req-list { display: flex; flex-direction: column; gap: 0.4rem; }
 .req { display: flex; gap: 0.5rem; align-items: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; line-height: 1.45; color: var(--muted); padding: 0.5rem 0.6rem; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
 .req:hover { border-color: var(--border-strong); color: var(--white); }

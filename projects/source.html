@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Source — Security Knowledge Base — NullPointer</title>
+<meta name="description" content="Source is local, offline search over a folder of Markdown notes for Claude Code, OpenCode, and any MCP client. Hybrid retrieval plus a reranker gives an agent the few note sections it needs mid-task. It is the shared memory behind Agent-Smith.">
+<link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="projects.css">
+
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <a href="../index.html"><img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="nav-logo"></a>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav-dd">
+        <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
+        <ul class="nav-dd-menu">
+          <li><a href="agent-smith.html">Agent-Smith</a></li>
+          <li><a href="construct.html">Construct</a></li>
+          <li><a href="source.html">Source</a></li>
+          <li><a href="skills.html">Skills</a></li>
+        </ul>
+      </li>
+      <li><a href="../blog/index.html">Blog</a></li>
+      <li><a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/0x0pointer" target="_blank" rel="noopener" class="nav-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.401 8.169L12 18.897l-7.335 3.866 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>
+      Give us a Star
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Page hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="badges"><span class="arsenal-badge off">Shared Memory</span><span class="arsenal-badge kind">Security Knowledge Base</span></div>
+    <p class="ph-tagline">Your notes never leave the machine.</p>
+    <h1>Source</h1>
+    <p class="ph-lede">Local, offline search over a folder of Markdown notes, for Claude Code, OpenCode, or any MCP client. An agent asks <em>&ldquo;how do I verify a fix actually worked?&rdquo;</em> in the middle of a task and gets back the two or three note sections that answer it, with their source&mdash;a few hundred tokens instead of reading every note. In the NullPointer loop it is the security knowledge base Agent-Smith reads from and writes back to.</p>
+    <div class="ph-actions">
+      <a href="https://github.com/0x0pointer/Source" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Get it on GitHub
+      </a>
+      <a href="../index.html#projects" class="btn btn-ghost">&larr; All projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live showcase ── -->
+<section>
+  <div class="container">
+    <div class="showcase reveal">
+      <div class="console">
+        <div class="console-bar">
+          <i class="r"></i><i class="y"></i><i class="g"></i>
+          <span>source &middot; acme-prod</span>
+          <span class="tag-count">127.0.0.1:7801</span>
+        </div>
+        <div class="console-body">
+          <div class="panel">
+            <h5>Ask a question &mdash; click one</h5>
+            <div class="req-list" id="qList">
+              <button type="button" class="req active" data-id="para"><span class="tag ok">Meaning</span><span>How do I roll back a failed migration?</span></button>
+              <button type="button" class="req" data-id="exact"><span class="tag ok">Exact</span><span>ERR_CONN_4021</span></button>
+              <button type="button" class="req" data-id="scen"><span class="tag ok">Scenario</span><span>The tenant check passes but I still see another org&rsquo;s invoice</span></button>
+            </div>
+          </div>
+          <div class="panel">
+            <h5>Retrieval</h5>
+            <div class="tier-flow">
+              <div class="tier-step"><span class="ts-dot"></span>Meaning search + exact-word search</div>
+              <div class="tier-step"><span class="ts-dot"></span>Merged by rank fusion <b class="verdict dim">~20</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Cross-encoder rerank</div>
+              <div class="tier-step block"><span class="ts-dot"></span>One result per section <b class="verdict ok">TOP 3</b></div>
+            </div>
+          </div>
+          <div class="log" id="qLog"></div>
+        </div>
+      </div>
+      <p class="showcase-cap">Meaning search finds the paraphrase. Keyword search finds the exact token. The reranker orders what is left.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Capabilities ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">What it is</p>
+      <h2 class="section-title">Small enough to trust.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h4>Private</h4>
+        <p>No API keys, no cloud, no telemetry. The only network access is a one-time model download during the first build; every search after that runs offline.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg></div>
+        <h4>Small</h4>
+        <p>A few hundred lines of Python, two local models of about 152 MB together, and one SQLite file. Nothing to operate.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+        <h4>Incremental</h4>
+        <p>Edit one note and rebuild: only that note is re-embedded. A watch mode rebuilds on every save, and new notes ingested over HTTP are searchable without a restart.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div>
+        <h4>Measured</h4>
+        <p>Ship a question set and the eval reports how often the right section is ranked first and in the top three, so you tune retrieval for your own notes instead of guessing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── The vault ── -->
+<section>
+  <div class="container">
+    <div class="reveal" style="max-width:62ch;">
+      <p class="section-label">The vault</p>
+      <h2 class="section-title">Log everything. Promote what worked.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">The notes are a plain folder of Markdown with three layers. A <code style="font-family:'IBM Plex Mono',monospace;color:var(--green);">journal/</code> entry per run holds the raw log of what was tried and what happened. <code style="font-family:'IBM Plex Mono',monospace;color:var(--green);">refs/</code> holds a deep-dive per topic. <code style="font-family:'IBM Plex Mono',monospace;color:var(--green);">METHODOLOGY.md</code> is the ordered playbook. One rule keeps it honest: a technique earns its place in the methodology only after it worked on a real task. Tag notes in frontmatter and tags become a search filter.</p>
+    </div>
+    <div class="chip-row reveal">
+      <span>Python 3.11+</span><span>SQLite</span><span>bge-small embeddings</span><span>BM25</span><span>MiniLM reranker</span><span>MCP</span><span>Markdown / PDF</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── With Agent-Smith ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">In the loop</p>
+      <h2 class="section-title">One instance per engagement.</h2>
+      <p class="section-subtitle" style="text-align:left;margin:0;">Source can serve one vault over a tiny localhost HTTP service, so each engagement or environment gets its own memory. <a href="agent-smith.html" style="color:var(--green);">Agent-Smith</a> binds one by name when a scan starts.</p>
+    </div>
+    <div class="b-modes reveal" style="margin-top:2rem;">
+      <div class="tglcard">
+        <div class="tgl on"></div>
+        <div><h4>Read</h4><p>Smith consults the bound Source for methodology when it picks a skill, and can query it at any point in a scan. Recall searches Source alongside prior engagement stores. Snippets are treated as data to verify, never as instructions.</p></div>
+      </div>
+      <div class="tglcard">
+        <div class="tgl exp"></div>
+        <div><h4>Write back</h4><p>What Smith confirms is posted back as structured notes. Source writes them into the vault, rebuilds the index incrementally, and reloads it in place, so the next engagement starts with what this one learned.</p></div>
+      </div>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>terminal</span></div>
+        <div class="console-simple">
+          <div class="log">
+            <div><span class="k">$</span> <span class="s">./run_instance.sh acme-prod --vault ~/engagements/acme/source --port 7801</span></div>
+            <div>&nbsp;</div>
+            <div><span class="t"># agent-smith/sources.yaml</span></div>
+            <div><span class="k">sources:</span></div>
+            <div>&nbsp;&nbsp;<span class="s">acme-prod: http://127.0.0.1:7801</span></div>
+            <div>&nbsp;</div>
+            <div><span class="k">session</span><span class="s">(action="start", options={target: "staging.acme.example", source: "acme-prod"})</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">The HTTP service binds to 127.0.0.1 on purpose. It has no authentication; keep it off the network.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Quickstart ── -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Quickstart</p>
+      <h2 class="section-title">Clone, build, ask.</h2>
+    </div>
+    <div class="showcase reveal" style="margin-top:2rem;">
+      <div class="console">
+        <div class="console-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>terminal</span></div>
+        <div class="console-simple">
+          <div class="log">
+            <div><span class="k">$</span> <span class="s">git clone https://github.com/0x0pointer/Source ~/source-rag &amp;&amp; cd ~/source-rag</span></div>
+            <div><span class="k">$</span> <span class="s">make install &amp;&amp; make build</span> <span class="t"># downloads the models once, then indexes in seconds</span></div>
+            <div><span class="k">$</span> <span class="s">make query Q="how do I verify a fix worked"</span></div>
+            <div>&nbsp;</div>
+            <div><span class="k">$</span> <span class="s">claude mcp add source -s user -- ~/source-rag/.venv/bin/python ~/source-rag/mcp_server.py</span></div>
+            <div>&nbsp;</div>
+            <div><span class="ok">&#10003;</span> <span class="s">the agent now calls </span><span class="k">search_notes</span><span class="s"> by itself</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="showcase-cap">Requires Python 3.11+ and about 200 MB of disk. It ships as a skeleton: point it at your own notes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section>
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Give your agents a memory.</h2>
+      <p>Open source under AGPL v3.0. It only finds what is written down, so write it down.</p>
+      <div class="ph-actions">
+        <a href="https://github.com/0x0pointer/Source" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+        <a href="../index.html#pipeline" class="btn btn-ghost">See the full loop</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <img src="../design/FullLogo_Transparent.png" alt="NullPointer" class="footer-logo">
+    <p>&copy; 2026 NullPointer (0x0pointer). Open source under respective licenses.</p>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// showcase — pick a question, see what comes back
+(function(){
+  const list = document.getElementById('qList');
+  if (!list) return;
+  const logEl = document.getElementById('qLog');
+  const Q = {
+    para: [
+      '<div><span class="k">search_notes</span> <span class="s">"how do I roll back a failed migration"</span></div>',
+      '<div><span class="ok">[1]</span> <span class="s">refs/deploys.md › Revert a broken deploy</span> <span class="t">score 8.7</span></div>',
+      '<div><span class="ok">[2]</span> <span class="s">METHODOLOGY.md › Verify</span> <span class="t">score 6.1</span></div>',
+      '<div><span class="ok">[3]</span> <span class="s">journal/2026-09-db-outage.md › What actually worked</span> <span class="t">score 5.8</span></div>',
+      '<div><span class="t">the note never says "roll back" — meaning search found it</span></div>'
+    ],
+    exact: [
+      '<div><span class="k">search_notes</span> <span class="s">"ERR_CONN_4021"</span> <span class="t">mode=hybrid</span></div>',
+      '<div><span class="ok">[1]</span> <span class="s">refs/errors.md › ERR_CONN_4021</span> <span class="t">score 9.3</span></div>',
+      '<div><span class="ok">[2]</span> <span class="s">journal/2026-08-proxy.md › Timeline</span> <span class="t">score 6.6</span></div>',
+      '<div><span class="t">an identifier has no meaning to embed — keyword search found it</span></div>'
+    ],
+    scen: [
+      '<div><span class="k">consult</span> <span class="s">"tenant check passes but I still see another org’s invoice"</span></div>',
+      '<div><span class="ok">[1]</span> <span class="s">findings/invoice-bola.md › Root cause</span> <span class="t">score 8.4</span></div>',
+      '<div><span class="ok">[2]</span> <span class="s">refs/authz.md › Tenant scoping</span> <span class="t">score 7.9</span></div>',
+      '<div><span class="ok">[3]</span> <span class="s">journal/2026-10-run.md › What worked</span> <span class="t">score 6.2</span></div>',
+      '<div><span class="t">a finding from the last engagement, written back by Agent-Smith</span></div>'
+    ]
+  };
+  const items = list.querySelectorAll('.req');
+  function select(el){
+    const d = Q[el.dataset.id];
+    if (!d) return;
+    items.forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+    logEl.innerHTML = d.join('');
+  }
+  items.forEach(el => el.addEventListener('click', () => select(el)));
+  select(items[0]);
+})();
+</script>
+</body>
+</html>

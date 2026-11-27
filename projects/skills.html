@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Skills — Slash-Command Security Library — NullPointer</title>
-<meta name="description" content="Skills is a library of 25 chainable slash-command security methodologies for any MCP-capable AI agent. Methodology as code, aligned to OWASP ASVS 5.0, the LLM Top 10, MITRE ATT&CK, PASTA, and STRIDE. One git clone, no SaaS.">
+<meta name="description" content="Skills is a library of 35+ chainable slash-command security methodologies for any MCP-capable AI agent. Methodology as code, aligned to OWASP ASVS 5.0, the LLM Top 10, MITRE ATT&CK, PASTA, and STRIDE. One git clone, no SaaS.">
 <link rel="icon" type="image/png" href="../design/IconOnly_Transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,8 @@
         <a href="../index.html#projects">Projects <span class="nav-caret">&#9662;</span></a>
         <ul class="nav-dd-menu">
           <li><a href="agent-smith.html">Agent-Smith</a></li>
-          <li><a href="seraph.html">Seraph</a></li>
+          <li><a href="construct.html">Construct</a></li>
+          <li><a href="source.html">Source</a></li>
           <li><a href="skills.html">Skills</a></li>
         </ul>
       </li>
@@ -46,7 +47,7 @@
     <div class="badges"><span class="arsenal-badge kind">Methodology</span><span class="arsenal-badge off">Slash-Command Library</span></div>
     <p class="ph-tagline">Methodology as code. Not scripts. Not checklists.</p>
     <h1>Skills</h1>
-    <p class="ph-lede">Your AI coding assistant already has the IQ&mdash;Skills gives it the methodology. Drop 25 chainable slash commands into Claude Code or OpenCode and the same agent that writes your features can red-team them, review source against OWASP ASVS 5.0, or model threats against your architecture. One <code>git clone</code>. No SaaS. No lock-in.</p>
+    <p class="ph-lede">Your AI coding assistant already has the IQ&mdash;Skills gives it the methodology. Drop 35+ chainable slash commands into Claude Code or OpenCode and the same agent that writes your features can red-team them, review source against OWASP ASVS 5.0, or model threats against your architecture. One <code>git clone</code>. No SaaS. No lock-in.</p>
     <div class="ph-actions">
       <a href="https://github.com/0x0pointer/skills" target="_blank" rel="noopener" class="btn btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
@@ -65,7 +66,7 @@
         <div class="console-bar">
           <i class="r"></i><i class="y"></i><i class="g"></i>
           <span>claude code &middot; /skills</span>
-          <span class="tag-count">25 commands</span>
+          <span class="tag-count">35+ commands</span>
         </div>
         <div class="console-body">
           <div class="panel">
@@ -123,7 +124,7 @@
       <div class="feature-card reveal">
         <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg></div>
         <h4>Agent-agnostic</h4>
-        <p>Claude Code, OpenCode, any MCP-capable client. Your agent, your rules, no vendor lock-in.</p>
+        <p>Claude Code, Codex, OpenCode, any MCP-capable client. The same repo also carries the harness-neutral methodology that <a href="construct.html" style="color:var(--green);">Construct</a>&rsquo;s scan stages run on.</p>
       </div>
     </div>
   </div>
@@ -134,7 +135,7 @@
   <div class="container">
     <div class="reveal">
       <p class="section-label">The library</p>
-      <h2 class="section-title">25 skills, five disciplines.</h2>
+      <h2 class="section-title">37 skills, six disciplines.</h2>
     </div>
     <div class="skill-cats reveal">
       <div class="skill-cat">
@@ -143,18 +144,22 @@
           <button type="button" class="lib-cmd" data-desc="Full penetration test — recon, scanning, exploitation and reporting. Auto-chains into the other skills.">/pentester</button>
           <button type="button" class="lib-cmd" data-desc="Deep web exploitation: SQLi, XSS, SSTI, SSRF, XXE, deserialization, JWT and request-smuggling attacks.">/web-exploit</button>
           <button type="button" class="lib-cmd" data-desc="OWASP API Top 10 across REST, GraphQL, gRPC and SOAP — BOLA/IDOR, auth, mass assignment, BFLA.">/api-security</button>
+          <button type="button" class="lib-cmd" data-desc="Map the intended workflow, then break it — value abuse, state-machine bypass, replay, cross-tenant access.">/business-logic</button>
+          <button type="button" class="lib-cmd" data-desc="Content discovery and input-validation fuzzing — hidden paths, 401/403 bypass, type confusion, boundary values.">/param-fuzz</button>
+          <button type="button" class="lib-cmd" data-desc="OAuth 2.0 / OIDC — redirect_uri bypass, state CSRF, PKCE downgrade, code injection, scope escalation.">/oauth-security</button>
+          <button type="button" class="lib-cmd" data-desc="SAML, enterprise SSO, SCIM and deep JWT — signature wrapping, golden SAML, provisioning abuse, alg confusion.">/saml-sso</button>
           <button type="button" class="lib-cmd" data-desc="Internal network assessment — VLAN hopping, LLMNR/NBT-NS abuse, segmentation checks, SNMP and NFS.">/network-assess</button>
           <button type="button" class="lib-cmd" data-desc="Post-exploitation — privilege escalation, persistence, credential harvesting and pivot prep (Linux &amp; Windows).">/post-exploit</button>
           <button type="button" class="lib-cmd" data-desc="AD &amp; network lateral movement — pass-the-hash/ticket, Kerberoasting, NTLM relay, delegation and RBCD.">/lateral-movement</button>
           <button type="button" class="lib-cmd" data-desc="Validate and run exploits with the Metasploit Framework in a dedicated container.">/metasploit</button>
           <button type="button" class="lib-cmd" data-desc="Generate reverse-shell payloads and manage listeners — encoded payloads and shell stabilization.">/reverse-shell</button>
-          <button type="button" class="lib-cmd" data-desc="Tunnel and pivot through compromised hosts to reach segmented internal networks.">/pivot-tunnel</button>
         </div>
       </div>
       <div class="skill-cat">
         <h4>Cloud, infrastructure &amp; identity</h4>
         <div class="chip-row">
           <button type="button" class="lib-cmd" data-desc="Cloud posture for AWS, Azure &amp; GCP — IAM privilege escalation, public storage, serverless, IMDS.">/cloud-security</button>
+          <button type="button" class="lib-cmd" data-desc="Federation attacks across AWS, Azure &amp; GCP — OIDC CI/CD trust abuse, workload identity, SSRF to IMDS to role.">/cloud-identity-federation</button>
           <button type="button" class="lib-cmd" data-desc="Container &amp; Kubernetes security — escapes, RBAC, exposed API server/etcd, image secrets, CIS.">/container-k8s-security</button>
           <button type="button" class="lib-cmd" data-desc="Active Directory audit — trusts, GPOs, ACL abuse, ADCS (ESC1-8) and delegation, via MITRE ATT&amp;CK.">/ad-assessment</button>
           <button type="button" class="lib-cmd" data-desc="Email infrastructure — SPF, DKIM, DMARC, open relay, spoofing resilience and MTA-STS.">/email-security</button>
@@ -163,13 +168,25 @@
         </div>
       </div>
       <div class="skill-cat">
+        <h4>Mobile</h4>
+        <div class="chip-row">
+          <button type="button" class="lib-cmd" data-desc="Mobile orchestrator — fingerprint the app and platform, then scope and route the assessment.">/mobile-pentest-plan</button>
+          <button type="button" class="lib-cmd" data-desc="Android assessment on OWASP MASVS 2.0 / MASTG — static APK analysis, then Frida/objection at runtime.">/android-security</button>
+          <button type="button" class="lib-cmd" data-desc="iOS assessment on OWASP MASVS 2.0 / MASTG — static IPA analysis, then dynamic testing on a device.">/ios-security</button>
+          <button type="button" class="lib-cmd" data-desc="Start a rooted Android emulator with the Burp CA trusted as a system certificate, ready to intercept.">/android-burp-emulator</button>
+          <button type="button" class="lib-cmd" data-desc="MASVS 2.0 compliance matrix mapped to MASTG test IDs, with evidence per control.">/masvs-checklist</button>
+        </div>
+      </div>
+      <div class="skill-cat">
         <h4>Recon &amp; analysis</h4>
         <div class="chip-row">
           <button type="button" class="lib-cmd" data-desc="Passive recon via MITRE ATT&amp;CK — email harvesting, subdomain takeover, cert transparency, Shodan.">/osint</button>
           <button type="button" class="lib-cmd" data-desc="PASTA + STRIDE — component map, data-flow diagram, attack tree and prioritized risk register.">/threat-modeling</button>
           <button type="button" class="lib-cmd" data-desc="White-box source review against OWASP ASVS 5.0 — 427 requirements across 16 chapters.">/codebase</button>
+          <button type="button" class="lib-cmd" data-desc="Full ASVS 5.0 compliance matrix against a codebase — every control marked with reasoning and evidence.">/compliance</button>
           <button type="button" class="lib-cmd" data-desc="Analyze CVEs in dependencies — trace vulnerable code paths and generate Burp-ready PoCs.">/analyze-cve</button>
-          <button type="button" class="lib-cmd" data-desc="Triage an Aikido findings CSV against the codebase — verdict each as keep-open or close.">/aikido-triage</button>
+          <button type="button" class="lib-cmd" data-desc="Supply-chain and CI/CD review — dependency confusion, typosquatting, install hooks, poisoned pipelines.">/supply-chain</button>
+          <button type="button" class="lib-cmd" data-desc="Triage Aikido findings live against the codebase — verify each one, then close confirmed non-issues.">/aikido-triage</button>
         </div>
       </div>
       <div class="skill-cat">
@@ -184,6 +201,7 @@
         <div class="chip-row">
           <button type="button" class="lib-cmd" data-desc="Generate a patch for a finding, then re-run the check to prove it's fixed.">/remediate</button>
           <button type="button" class="lib-cmd" data-desc="Format confirmed findings into copy-pasteable GitHub issue markdown.">/gh-export</button>
+          <button type="button" class="lib-cmd" data-desc="Generate a styled PDF penetration test report — executive summary, risk dashboard, per-finding cards.">/report</button>
           <button type="button" class="lib-cmd" data-desc="Build CVE request packages — MITRE form, GHSA draft and disclosure report — from findings.">/request-cves</button>
         </div>
       </div>
@@ -211,7 +229,7 @@
             <div><span class="k">$</span> <span class="s">cd agent-smith &amp;&amp; ./installers/install.sh</span></div>
             <div>&nbsp;</div>
             <div><span class="ok">&#10003;</span> <span class="s">installs to ~/.claude/skills/ or ~/.config/opencode/commands/</span></div>
-            <div><span class="t">Open your agent, type &ldquo;/&rdquo; &mdash; 25 commands, ready.</span></div>
+            <div><span class="t">Open your agent, type &ldquo;/&rdquo; &mdash; 35+ commands, ready.</span></div>
           </div>
         </div>
       </div>
@@ -294,7 +312,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
         '<div><span class="t">[OWASP LLM Top 10]</span></div>',
         '<div><span class="bad">✗</span> <span class="s">LLM01 prompt injection via tool output</span></div>',
         '<div><span class="bad">✗</span> <span class="s">LLM02 leaks DB connection string</span></div>',
-        '<div><span class="t">→ recommend</span> <span class="k">Seraph</span> <span class="s">as guardrail proxy</span></div>'
+        '<div><span class="t">[redteam]</span> <span class="s">reproduced 7/10 across 3 technique families</span></div>'
       ]
     },
     '/threat-modeling': {

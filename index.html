@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NullPointer — Holistic Application Security</title>
-<meta name="description" content="Open-source offensive & defensive application security tooling. AI-powered pentesting, LLM guardrails, and structured assessment methodologies.">
+<title>NullPointer — Continuous AI Red Teaming, Open Source</title>
+<meta name="description" content="Open-source continuous AI red teaming. Construct reads every pull request, Source keeps what was learned, and Agent-Smith proves it against the running app.">
 <link rel="icon" type="image/png" href="design/IconOnly_Transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -588,88 +588,39 @@ section {
   overflow: hidden;
 }
 
-.pipeline-wrapper {
-  margin-top: 4rem;
-  position: relative;
-}
-
-.pipeline-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  padding: 3rem 0;
-  overflow-x: auto;
-}
-
-.pipeline-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  min-width: 160px;
-  flex-shrink: 0;
-}
-
-.pipeline-node-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  position: relative;
-  transition: all 0.4s ease;
-}
-
-.pipeline-node:hover .pipeline-node-icon {
-  transform: scale(1.1);
-}
-
-.pipeline-node-icon.node-agent {
-  background: var(--green-dim);
-  border: 2px solid rgba(91, 242, 155, 0.25);
-}
-
-.pipeline-node-icon.node-seraph {
-  background: var(--purple-dim);
-  border: 2px solid rgba(123, 120, 255, 0.25);
-}
-
-.pipeline-node-icon.node-skills {
-  background: rgba(91, 242, 155, 0.08);
-  border: 2px solid rgba(91, 242, 155, 0.15);
-}
-
-.pipeline-node-label {
-  font-family: 'Chakra Petch', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--white-bright);
-  margin-bottom: 0.35rem;
-}
-
-.pipeline-node-sub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--muted);
-  max-width: 130px;
-}
-
-.pipeline-arrow {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 0 0.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.pipeline-arrow svg {
-  width: 60px;
-  height: 20px;
-}
+.arch-wrap { margin-top: 3rem; }
+.arch-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 16px; background: rgba(26, 24, 64, 0.55); padding: 1rem; scrollbar-width: thin; scrollbar-color: var(--purple) transparent; }
+.arch { display: block; width: 100%; min-width: 960px; height: auto; }
+.arch text { font-family: 'IBM Plex Mono', monospace; }
+.arch .a-box { fill: #1a1840; stroke: rgba(123, 120, 255, 0.28); stroke-width: 1; }
+.arch .a-box.a-purple { stroke: rgba(123, 120, 255, 0.6); }
+.arch .a-box.a-green { stroke: rgba(91, 242, 155, 0.5); }
+.arch .a-box.a-solid { fill: #0d0b22; stroke: var(--green); stroke-width: 1.5; }
+.arch .a-box.a-dashed { fill: none; stroke-dasharray: 6 5; stroke: rgba(155, 152, 184, 0.6); }
+.arch .a-stage { fill: rgba(123, 120, 255, 0.1); stroke: rgba(123, 120, 255, 0.25); }
+.arch .a-title { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 14px; fill: #ffffff; }
+.arch .a-title.a-lg { font-size: 19px; font-weight: 700; }
+.arch .a-stage-t { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 11.5px; fill: #ffffff; }
+.arch .a-num { font-size: 10px; font-weight: 600; fill: var(--purple); letter-spacing: 0.08em; }
+.arch .a-sub { font-size: 9.5px; fill: var(--muted); }
+.arch .a-item { font-size: 10.5px; fill: var(--white); }
+.arch .a-dot { fill: var(--green); }
+.arch .a-sep { stroke: var(--border-strong); }
+.arch .a-chev { fill: none; stroke: var(--purple); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.arch .a-pill { fill: var(--purple-dim); stroke: rgba(123, 120, 255, 0.35); }
+.arch .a-pill-t { font-size: 9px; fill: #b9b7ff; }
+.arch .a-flow { fill: none; stroke-width: 2; }
+.arch .a-flow.exec { stroke: #7b78ff; }
+.arch .a-flow.read { stroke: #5bf29b; }
+.arch .a-flow.write { stroke: #ffb86c; }
+.arch .a-lbl { font-size: 10px; }
+.arch .a-lbl.exec { fill: #b9b7ff; }
+.arch .a-lbl.read { fill: #5bf29b; }
+.arch .a-lbl.write { fill: #ffb86c; }
+.arch .a-loop { fill: rgba(91, 242, 155, 0.07); stroke: rgba(91, 242, 155, 0.45); }
+.arch .a-loop-t { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.14em; fill: var(--green); }
+.arch-note { max-width: 760px; margin: 1.5rem auto 0; text-align: center; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+.arch-note b { color: var(--white-bright); font-weight: 600; }
 
 .pipeline-cycle-label {
   text-align: center;
@@ -767,20 +718,6 @@ footer p {
     gap: 1.5rem;
   }
 
-  
-
-  
-
-  .pipeline-visual {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .pipeline-arrow {
-    transform: rotate(90deg);
-    margin-bottom: 0;
-    padding: 0.25rem 0;
-  }
 }
 
 @media (max-width: 640px) {
@@ -884,7 +821,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 @media (max-width:560px){.console-body{grid-template-columns:1fr}.metrics{flex-wrap:wrap}}
 @media (prefers-reduced-motion:reduce){.console-bar .live i{animation:none!important}}
 
-/* ═══ Console variants for Seraph (defensive) & Skills (methodology) ═══ */
+/* ═══ Console variants: purple (Construct) & Skills (methodology) ═══ */
 .b-grid.rev{grid-template-columns:1.15fr 0.85fr}
 .b-grid+.b-grid{margin-top:3.5rem}
 .arsenal-badge.def{background:var(--purple-dim);color:var(--purple)}
@@ -902,6 +839,8 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .tier-step.block{color:var(--white-bright)}
 .tier-step .verdict{margin-left:auto;font-size:.64rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;letter-spacing:.04em}
 .verdict.bad{background:#3a1922;color:#ff9d9d}
+.verdict.ok{background:var(--green-dim);color:var(--green)}
+.verdict.dim{background:rgba(255,255,255,.05);color:var(--muted);font-weight:600}
 
 /* command palette */
 .cmd-list{display:flex;flex-direction:column;gap:.3rem}
@@ -932,7 +871,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 .blog-teaser-all:hover{color:var(--white-bright)}
 @media (max-width:560px){.blog-teaser-card{grid-template-columns:1fr}.blog-teaser-ic{display:none}}
 
-/* ═══ Projects: consistent vertical rhythm + simplified Seraph/Skills panels ═══ */
+/* ═══ Projects: consistent vertical rhythm + simplified panels ═══ */
 .projects-rows{display:flex;flex-direction:column;gap:4.5rem;margin-top:3.5rem}
 .projects-rows .b-grid{margin-top:0}                 /* one gap value drives spacing */
 .b-grid.simple,.b-grid.rev.simple{grid-template-columns:1fr 1fr;align-items:center}
@@ -978,7 +917,8 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
         <a href="#projects">Projects <span class="nav-caret">&#9662;</span></a>
         <ul class="nav-dd-menu">
           <li><a href="projects/agent-smith.html">Agent-Smith</a></li>
-          <li><a href="projects/seraph.html">Seraph</a></li>
+          <li><a href="projects/construct.html">Construct</a></li>
+          <li><a href="projects/source.html">Source</a></li>
           <li><a href="projects/skills.html">Skills</a></li>
         </ul>
       </li>
@@ -1003,9 +943,9 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
   <div class="hero-glow"></div>
   <div class="hero-content">
     <img src="design/FullLogo_Transparent.png" alt="NullPointer" class="hero-logo">
-    <p class="hero-tagline">Holistic Application Security &mdash; Offensive &amp; Defensive Open Source Tooling</p>
+    <p class="hero-tagline">Continuous AI Red Teaming &mdash; Intelligence to Exploitation</p>
     <p class="hero-desc">
-      A complete open-source ecosystem for application security. From AI-powered pentesting to LLM guardrails and structured assessment methodologies.
+      An open-source loop for application security. Construct reads every pull request, Source remembers what was learned, and Agent-Smith proves it against the running app.
     </p>
     <div class="hero-actions">
       <a href="https://github.com/orgs/0x0pointer/repositories" target="_blank" rel="noopener" class="btn btn-primary">
@@ -1029,61 +969,62 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
   <div class="container">
     <div class="reveal">
       <p class="section-label">What We Do</p>
-      <h2 class="section-title">Full-spectrum application<br>security, open source.</h2>
+      <h2 class="section-title">Find it in the code.<br>Prove it on the app.</h2>
     </div>
 
     <div class="pillars-grid">
-      <!-- Offensive -->
+      <!-- Code intelligence -->
       <div class="pillar-card reveal reveal-delay-1">
-        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
-          <rect x="8" y="12" width="48" height="36" rx="3" stroke="#5bf29b" stroke-width="1.5" opacity="0.3"/>
-          <rect x="12" y="16" width="40" height="28" rx="2" stroke="#5bf29b" stroke-width="1.5"/>
-          <text x="16" y="28" font-family="monospace" font-size="7" fill="#5bf29b" opacity="0.8">$ nmap -sV</text>
-          <text x="16" y="37" font-family="monospace" font-size="6" fill="#7b78ff" opacity="0.6">scanning...</text>
-          <line x1="14" y="52" x2="50" y2="52" stroke="#5bf29b" stroke-width="1" opacity="0.15"/>
-          <circle cx="52" cy="20" r="2" fill="#5bf29b" opacity="0.6">
-            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-        <span class="pillar-eyebrow">Offensive Security</span>
-        <h3>A pentest agent that actually thinks.</h3>
-        <p>Most AI &ldquo;pentesters&rdquo; are chatbots wrapped around a script library. <strong>Agent-Smith flips the model</strong>&mdash;skills teach the methodology, the LLM invents the attack. Self-chaining across 25+ disciplines: web, cloud, AD, AI red-team, white-box review. Nothing else in open source comes close.</p>
-      </div>
-
-      <!-- Defensive -->
-      <div class="pillar-card reveal reveal-delay-2">
-        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
-          <path d="M32 6 L54 16 V34 C54 46 32 58 32 58 C32 58 10 46 10 34 V16 L32 6Z" stroke="#7b78ff" stroke-width="1.5" fill="none"/>
-          <path d="M32 14 L46 21 V33 C46 41 32 50 32 50 C32 50 18 41 18 33 V21 L32 14Z" stroke="#7b78ff" stroke-width="1" opacity="0.3"/>
-          <line x1="22" y1="30" x2="30" y2="38" stroke="#5bf29b" stroke-width="2" stroke-linecap="round"/>
-          <line x1="42" y1="24" x2="30" y2="38" stroke="#5bf29b" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="48" cy="12" r="3" stroke="#5bf29b" stroke-width="1" opacity="0.4">
-            <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-        <span class="pillar-eyebrow">Defensive Security</span>
-        <h3>The LLM firewall built on semantic intent.</h3>
-        <p>Seraph isn&rsquo;t another blocklist. A two-tier proxy runs a <strong>semantic allow-list</strong> (NeMo + embeddings) that decides what users are even allowed to ask, then hands edge cases to an <strong>LLM-as-judge</strong>. A defense designed for prompts you haven&rsquo;t seen yet. Drop-in for OpenAI, Anthropic, Azure, Ollama&mdash;zero code changes.</p>
-      </div>
-
-      <!-- Methodology -->
-      <div class="pillar-card reveal reveal-delay-3">
         <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
           <rect x="14" y="6" width="36" height="48" rx="2" stroke="#fff" stroke-width="1.5" opacity="0.3"/>
           <rect x="18" y="10" width="28" height="40" rx="1" stroke="#fff" stroke-width="1" opacity="0.15"/>
           <line x1="22" y1="18" x2="42" y2="18" stroke="#7b78ff" stroke-width="1.5" stroke-linecap="round"/>
           <line x1="22" y1="24" x2="38" y2="24" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-          <line x1="22" y1="29" x2="40" y2="29" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+          <line x1="22" y1="29" x2="40" y2="29" stroke="#ff8f8f" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
           <line x1="22" y1="34" x2="35" y2="34" stroke="#5bf29b" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
           <rect x="22" y="39" width="8" height="6" rx="1" stroke="#7b78ff" stroke-width="1" opacity="0.5"/>
           <rect x="33" y="39" width="8" height="6" rx="1" stroke="#7b78ff" stroke-width="1" opacity="0.5"/>
-          <circle cx="44" cy="10" r="6" fill="#5bf29b" opacity="0.1" stroke="#5bf29b" stroke-width="1" opacity="0.3"/>
-          <text x="42" y="13" font-family="monospace" font-size="8" fill="#5bf29b" text-anchor="middle">?</text>
+          <circle cx="46" cy="10" r="6" fill="#5bf29b" fill-opacity="0.1" stroke="#5bf29b" stroke-width="1" opacity="0.5"/>
+          <text x="46" y="13" font-family="monospace" font-size="8" fill="#5bf29b" text-anchor="middle">PR</text>
         </svg>
-        <span class="pillar-eyebrow">Methodology</span>
-        <h3>Skills as pattern teachings, not scripts.</h3>
-        <p>25+ chainable slash-command skills covering the full lifecycle&mdash;recon, exploit, defend, remediate. Aligned to <strong>OWASP ASVS 5.0, LLM Top 10, MITRE ATT&amp;CK, PASTA, STRIDE</strong>. Built by the community, pluggable into any AI agent.</p>
+        <span class="pillar-eyebrow">Code Intelligence</span>
+        <h3>Every pull request, read like an attacker.</h3>
+        <p><strong>Construct</strong> scans every PR in your GitHub org with a short chain of agents: triage, hypothesise, static verify, skeptic. Whatever survives is <strong>replayed against the PR&rsquo;s own app</strong> in a sandbox with mock services, with no agent in the loop. Teams change nothing in their CI.</p>
+      </div>
+
+      <!-- Offensive -->
+      <div class="pillar-card reveal reveal-delay-2">
+        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
+          <rect x="8" y="12" width="48" height="36" rx="3" stroke="#5bf29b" stroke-width="1.5" opacity="0.3"/>
+          <rect x="12" y="16" width="40" height="28" rx="2" stroke="#5bf29b" stroke-width="1.5"/>
+          <text x="16" y="28" font-family="monospace" font-size="7" fill="#5bf29b" opacity="0.8">$ nmap -sV</text>
+          <text x="16" y="37" font-family="monospace" font-size="6" fill="#7b78ff" opacity="0.6">scanning...</text>
+          <line x1="14" y1="52" x2="50" y2="52" stroke="#5bf29b" stroke-width="1" opacity="0.15"/>
+          <circle cx="52" cy="20" r="2" fill="#5bf29b" opacity="0.6">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <span class="pillar-eyebrow">Offensive Execution</span>
+        <h3>A pentest agent that actually thinks.</h3>
+        <p>Most AI &ldquo;pentesters&rdquo; are chatbots wrapped around a script library. <strong>Agent-Smith flips the model</strong>&mdash;skills teach the methodology, the LLM invents the attack. 35+ self-chaining skills across web, mobile, cloud, AD, and AI red-team, with every finding backed by an artifact.</p>
+      </div>
+
+      <!-- Memory -->
+      <div class="pillar-card reveal reveal-delay-3">
+        <svg class="pillar-icon" viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="16" rx="18" ry="7" stroke="#7b78ff" stroke-width="1.5"/>
+          <path d="M14 16v16c0 3.9 8 7 18 7s18-3.1 18-7V16" stroke="#7b78ff" stroke-width="1.5"/>
+          <path d="M14 32v14c0 3.9 8 7 18 7s18-3.1 18-7V32" stroke="#7b78ff" stroke-width="1.5" opacity="0.5"/>
+          <line x1="22" y1="27" x2="30" y2="27" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="22" y1="43" x2="27" y2="43" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="50" cy="12" r="3" stroke="#5bf29b" stroke-width="1" opacity="0.4">
+            <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <span class="pillar-eyebrow">Shared Memory</span>
+        <h3>A knowledge base that compounds.</h3>
+        <p><strong>Source</strong> is the security knowledge base: local, offline search over Markdown notes. Hybrid retrieval (meaning + exact words) plus a reranker hands an agent the two or three sections it needs mid-task. Smith reads from it and <strong>writes findings back</strong>, so each engagement starts smarter.</p>
       </div>
     </div>
   </div>
@@ -1097,8 +1038,8 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
   <div class="container">
     <div class="reveal" style="text-align:center;">
       <p class="section-label" style="justify-content:center;">Open Source Arsenal</p>
-      <h2 class="section-title">Built to break. Built to protect.</h2>
-      <p class="section-subtitle">Three projects. One mission: security that moves at the speed of AI&mdash;so your defense does too.</p>
+      <h2 class="section-title">Four projects. One loop.</h2>
+      <p class="section-subtitle">Each one stands alone. Together they turn every code change into a tested, remembered attack path.</p>
     </div>
 
     <div class="projects-rows">
@@ -1110,7 +1051,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
           <h3>The AI that thinks like an attacker.</h3>
           <p class="lede">Point it at a target and watch a full pentest run itself&mdash;findings, PoCs, patches, and reports. It builds a live world model of everything it discovers.</p>
           <div class="metrics">
-            <div class="metric"><div class="n">25+</div><div class="l">Skills</div></div>
+            <div class="metric"><div class="n">35+</div><div class="l">Skills</div></div>
             <div class="metric p"><div class="n">50+</div><div class="l">Tools in parallel</div></div>
             <div class="metric"><div class="n">100%</div><div class="l">Sandboxed</div></div>
           </div>
@@ -1138,68 +1079,104 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
         </div>
       </div>
 
-      <!-- Seraph — simplified: one clean panel -->
+      <!-- Construct -->
       <div class="b-grid rev simple reveal">
         <div class="console def">
           <div class="console-bar">
             <i class="r"></i><i class="y"></i><i class="g"></i>
-            <span>seraph &middot; llm gateway</span>
-            <span class="live"><i></i>GUARDING</span>
+            <span>construct &middot; scan #42 &middot; acme/api PR 318</span>
+            <span class="live"><i></i>SCANNING</span>
           </div>
           <div class="console-simple">
             <div class="tier-flow">
-              <div class="tier-step"><span class="ts-dot"></span>Prompt in</div>
-              <div class="tier-step block"><span class="ts-dot"></span>Tier 1 &middot; semantic allow-list <b class="verdict bad">BLOCK</b></div>
-              <div class="tier-step"><span class="ts-dot"></span>Tier 2 &middot; LLM-as-judge</div>
-              <div class="tier-step"><span class="ts-dot"></span>Upstream model</div>
+              <div class="tier-step"><span class="ts-dot"></span>Triage <b class="verdict dim">FULL</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Hypothesise <b class="verdict dim">4 HYPOTHESES</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Static verify <b class="verdict dim">2 CONFIRMED</b></div>
+              <div class="tier-step"><span class="ts-dot"></span>Skeptic <b class="verdict dim">1 REFUTED</b></div>
+              <div class="tier-step block"><span class="ts-dot"></span>Dynamic replay &middot; 2&times; PR, 1&times; base <b class="verdict ok">REPRODUCED</b></div>
             </div>
           </div>
         </div>
         <div class="b-copy">
-          <div class="badges"><span class="arsenal-badge def">Defensive</span><span class="arsenal-badge kind">LLM Guardrail Proxy</span></div>
-          <h3>A firewall that can&rsquo;t be talked out of its job.</h3>
-          <p class="lede">A positive-security allow-list defines what users are even allowed to ask&mdash;so there&rsquo;s nothing to jailbreak past.</p>
+          <div class="badges"><span class="arsenal-badge def">Code Intelligence</span><span class="arsenal-badge kind">PR Security Scanner</span></div>
+          <h3>Findings you don&rsquo;t have to argue about.</h3>
+          <p class="lede">A GitHub App sends every PR to a chain of sandboxed agents. Bugs that survive are replayed against the PR&rsquo;s running app&mdash;so a finding arrives already proven, and you know whether the PR introduced it.</p>
           <div class="metrics def">
-            <div class="metric"><div class="n">2</div><div class="l">Defense tiers</div></div>
-            <div class="metric"><div class="n">0</div><div class="l">Blocklists</div></div>
-            <div class="metric"><div class="n">5+</div><div class="l">LLM providers</div></div>
+            <div class="metric"><div class="n">5</div><div class="l">Agent stages</div></div>
+            <div class="metric"><div class="n">3</div><div class="l">Agent-free replays</div></div>
+            <div class="metric"><div class="n">0</div><div class="l">CI changes</div></div>
           </div>
-          <a class="arsenal-cta def" href="projects/seraph.html">Explore Seraph
+          <a class="arsenal-cta def" href="projects/construct.html">Explore Construct
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- Skills — simplified: one clean panel -->
+      <!-- Source -->
       <div class="b-grid simple reveal">
         <div class="b-copy">
-          <div class="badges"><span class="arsenal-badge kind">Methodology</span><span class="arsenal-badge off">Slash-Command Library</span></div>
-          <h3>Security expertise, one slash command away.</h3>
-          <p class="lede">25+ chainable commands that turn any MCP-capable agent into a red-teamer. One <code>git clone</code>. No SaaS.</p>
+          <div class="badges"><span class="arsenal-badge off">Shared Memory</span><span class="arsenal-badge kind">Security Knowledge Base</span></div>
+          <h3>What you learned last time, on tap.</h3>
+          <p class="lede">Local, offline search over a folder of Markdown. An agent asks a question mid-task and gets the few note sections that answer it, with their source&mdash;a few hundred tokens instead of the whole vault.</p>
           <div class="metrics">
-            <div class="metric"><div class="n">25</div><div class="l">Commands</div></div>
-            <div class="metric p"><div class="n">427</div><div class="l">ASVS checks</div></div>
-            <div class="metric"><div class="n">0</div><div class="l">Lock-in</div></div>
+            <div class="metric"><div class="n">2</div><div class="l">Retrieval stages</div></div>
+            <div class="metric p"><div class="n">1</div><div class="l">SQLite file</div></div>
+            <div class="metric"><div class="n">0</div><div class="l">Cloud calls</div></div>
           </div>
-          <a class="arsenal-cta" href="projects/skills.html">Explore Skills
+          <a class="arsenal-cta" href="projects/source.html">Explore Source
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
         <div class="console">
           <div class="console-bar">
             <i class="r"></i><i class="y"></i><i class="g"></i>
+            <span>source &middot; acme-prod</span>
+            <span class="tag-count">127.0.0.1:7801</span>
+          </div>
+          <div class="console-simple">
+            <div class="log" style="background:none;padding:0;">
+              <div><span class="k">consult</span> <span class="s">"how does the tenant check work on invoices"</span></div>
+              <div>&nbsp;</div>
+              <div><span class="ok">[1]</span> <span class="s">refs/authz.md &rsaquo; Tenant scoping</span> <span class="t">8.4</span></div>
+              <div><span class="ok">[2]</span> <span class="s">findings/invoice-bola.md &rsaquo; Root cause</span> <span class="t">7.9</span></div>
+              <div><span class="ok">[3]</span> <span class="s">journal/2026-10-run.md &rsaquo; What worked</span> <span class="t">6.2</span></div>
+              <div>&nbsp;</div>
+              <div><span class="t">hybrid (vector + BM25) &rarr; rerank &rarr; top 3</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="b-grid rev simple reveal">
+        <div class="console">
+          <div class="console-bar">
+            <i class="r"></i><i class="y"></i><i class="g"></i>
             <span>claude code &middot; /skills</span>
-            <span class="tag-count">25+ commands</span>
+            <span class="tag-count">35+ commands</span>
           </div>
           <div class="console-simple">
             <div class="cmd-list">
               <div class="cmd active">/pentester</div>
               <div class="cmd">/codebase</div>
               <div class="cmd">/ai-redteam</div>
-              <div class="cmd">/threat-model</div>
+              <div class="cmd">/threat-modeling</div>
               <div class="cmd">/remediate</div>
             </div>
           </div>
+        </div>
+        <div class="b-copy">
+          <div class="badges"><span class="arsenal-badge kind">Methodology</span><span class="arsenal-badge off">Slash-Command Library</span></div>
+          <h3>Security expertise, one slash command away.</h3>
+          <p class="lede">35+ chainable commands that turn any MCP-capable agent into a red-teamer&mdash;and the same repo carries the methodology Construct&rsquo;s stages run on. One <code>git clone</code>. No SaaS.</p>
+          <div class="metrics">
+            <div class="metric"><div class="n">35+</div><div class="l">Commands</div></div>
+            <div class="metric p"><div class="n">427</div><div class="l">ASVS checks</div></div>
+            <div class="metric"><div class="n">0</div><div class="l">Lock-in</div></div>
+          </div>
+          <a class="arsenal-cta" href="projects/skills.html">Explore Skills
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
       </div>
 
@@ -1212,57 +1189,111 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
 <section id="pipeline">
   <div class="container">
     <div class="reveal" style="text-align:center;">
-      <p class="section-label" style="justify-content:center;">The Ecosystem</p>
-      <h2 class="section-title">A continuous security lifecycle.</h2>
-      <p style="color:var(--muted); max-width:560px; margin:0 auto; font-size:0.95rem; line-height:1.7;">Every tool feeds the next. Methodology informs testing, testing reveals what to defend, defense generates knowledge, and knowledge refines the methodology.</p>
+      <p class="section-label" style="justify-content:center;">The Architecture</p>
+      <h2 class="section-title">Continuous AI red teaming.</h2>
+      <p class="section-subtitle">Construct turns each code change into security hypotheses. Source keeps them next to your business context. Agent-Smith retrieves what matters, attacks the running app, and writes what it proved back into the knowledge base.</p>
     </div>
 
-    <div class="pipeline-wrapper reveal reveal-delay-1">
-      <div class="pipeline-visual">
-        <!-- Skills -->
-        <div class="pipeline-node">
-          <div class="pipeline-node-icon node-skills node-skills">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="7" y1="8" x2="12" y2="8"/><line x1="7" y1="11" x2="15" y2="11"/><path d="M8 21h8M12 17v4"/></svg>
-          </div>
-          <span class="pipeline-node-label">Skills</span>
-          <span class="pipeline-node-sub">Learn &amp; share</span>
-        </div>
+    <div class="arch-wrap reveal reveal-delay-1">
+      <div class="arch-scroll">
+        <svg class="arch" viewBox="0 0 1240 630" role="img" aria-labelledby="archTitle archDesc">
+          <title id="archTitle">Continuous AI red teaming architecture</title>
+          <desc id="archDesc">Pull requests flow into Construct, which runs triage, hypothesise, static verify, skeptic and dynamic replay, using an isolated PR preview environment. Construct and business context are written to the Source knowledge base. Agent-Smith retrieves prioritized targets and context from Source, tests the target application, and reports findings and coverage, which are written back to Source.</desc>
+          <defs>
+            <marker id="mExec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7b78ff"/></marker>
+            <marker id="mRead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5bf29b"/></marker>
+            <marker id="mWrite" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffb86c"/></marker>
+          </defs>
 
-        <div class="pipeline-arrow">
-          <svg viewBox="0 0 60 20" fill="none">
-            <line x1="0" y1="10" x2="48" y2="10" stroke="#7b78ff" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
-            <polyline points="44,5 52,10 44,15" stroke="#7b78ff" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
+          <!-- Code & changes -->
+          <rect class="a-box" x="20" y="40" width="200" height="150" rx="12"/>
+          <text class="a-title" x="38" y="68">Code &amp; changes</text>
+          <text class="a-sub" x="38" y="84">development flow</text>
+          <circle class="a-dot" cx="38" cy="104" r="2.5"/><text class="a-item" x="48" y="108">Pull requests</text><circle class="a-dot" cx="38" cy="134" r="2.5"/><text class="a-item" x="48" y="138">Code changes / diffs</text><circle class="a-dot" cx="38" cy="164" r="2.5"/><text class="a-item" x="48" y="168">New features &amp; logic</text>
 
-        <!-- Agent -->
-        <div class="pipeline-node">
-          <div class="pipeline-node-icon node-agent">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7b78ff" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/><polyline points="9 12 11 14 15 10"/></svg>
-          </div>
-          <span class="pipeline-node-label">Agent-Smith</span>
-          <span class="pipeline-node-sub">Attack &amp; discover </span>
-        </div>
+          <!-- Business context -->
+          <rect class="a-box" x="20" y="300" width="200" height="220" rx="12"/>
+          <text class="a-title" x="38" y="328">Business context</text>
+          <text class="a-sub" x="38" y="344">what the app is for</text>
+          <circle class="a-dot" cx="38" cy="368" r="2.5"/><text class="a-item" x="48" y="372">App / product docs</text><circle class="a-dot" cx="38" cy="398" r="2.5"/><text class="a-item" x="48" y="402">Architecture &amp; data flow</text><circle class="a-dot" cx="38" cy="428" r="2.5"/><text class="a-item" x="48" y="432">API specs (OpenAPI…)</text><circle class="a-dot" cx="38" cy="458" r="2.5"/><text class="a-item" x="48" y="462">Business processes</text><circle class="a-dot" cx="38" cy="488" r="2.5"/><text class="a-item" x="48" y="492">Trust boundaries</text>
 
-        <div class="pipeline-arrow">
-          <svg viewBox="0 0 60 20" fill="none">
-            <line x1="0" y1="10" x2="48" y2="10" stroke="#5bf29b" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
-            <polyline points="44,5 52,10 44,15" stroke="#5bf29b" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
+          <!-- Construct -->
+          <rect class="a-box a-purple" x="280" y="40" width="520" height="186" rx="12"/>
+          <text class="a-title a-lg" x="298" y="70">Construct</text>
+          <text class="a-sub" x="298" y="88">code intelligence &amp; vulnerability discovery</text>
+          <rect class="a-pill" x="672" y="54" width="112" height="22" rx="11"/>
+          <text class="a-pill-t" x="728" y="69" text-anchor="middle">AI analyzer for PRs</text>
+          <rect class="a-stage" x="296" y="112" width="88" height="96" rx="8"/><text class="a-num" x="340" y="138" text-anchor="middle">01</text><text class="a-stage-t" x="340" y="164" text-anchor="middle">Triage</text><text class="a-sub" x="340" y="184" text-anchor="middle">worth a scan?</text><path class="a-chev" d="M387 155l5 5-5 5"/><rect class="a-stage" x="396" y="112" width="88" height="96" rx="8"/><text class="a-num" x="440" y="138" text-anchor="middle">02</text><text class="a-stage-t" x="440" y="164" text-anchor="middle">Hypothesise</text><text class="a-sub" x="440" y="184" text-anchor="middle">source to sink</text><path class="a-chev" d="M487 155l5 5-5 5"/><rect class="a-stage" x="496" y="112" width="88" height="96" rx="8"/><text class="a-num" x="540" y="138" text-anchor="middle">03</text><text class="a-stage-t" x="540" y="164" text-anchor="middle">Static verify</text><text class="a-sub" x="540" y="184" text-anchor="middle">check the code</text><path class="a-chev" d="M587 155l5 5-5 5"/><rect class="a-stage" x="596" y="112" width="88" height="96" rx="8"/><text class="a-num" x="640" y="138" text-anchor="middle">04</text><text class="a-stage-t" x="640" y="164" text-anchor="middle">Skeptic</text><text class="a-sub" x="640" y="184" text-anchor="middle">try to refute</text><path class="a-chev" d="M687 155l5 5-5 5"/><rect class="a-stage" x="696" y="112" width="88" height="96" rx="8"/><text class="a-num" x="740" y="138" text-anchor="middle">05</text><text class="a-stage-t" x="740" y="164" text-anchor="middle">Dynamic replay</text><text class="a-sub" x="740" y="184" text-anchor="middle">agent-free PoC</text>
 
-        <!-- Seraph -->
-        <div class="pipeline-node">
-          <div class="pipeline-node-icon node-seraph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5bf29b" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="4" r="1.5"/><circle cx="20" cy="12" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4" cy="12" r="1.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><line x1="18.5" y1="12" x2="15" y2="12"/><line x1="12" y1="18.5" x2="12" y2="15"/><line x1="5.5" y1="12" x2="9" y2="12"/></svg>
-          </div>
-          <span class="pipeline-node-label">Seraph</span>
-          <span class="pipeline-node-sub">Defend &amp; protect</span>
-        </div>
+          <!-- PR preview environment -->
+          <rect class="a-box a-dashed" x="900" y="40" width="320" height="80" rx="12"/>
+          <text class="a-title" x="918" y="72">PR preview environment</text>
+          <text class="a-sub" x="918" y="92">the PR&rsquo;s app, mock services, DNS sink</text>
+          <path class="a-flow exec" d="M800 80H896" marker-end="url(#mExec)"/>
+          <text class="a-lbl exec" x="848" y="68" text-anchor="middle">isolated replay</text>
+
+          <!-- Source -->
+          <rect class="a-box a-green" x="280" y="320" width="360" height="200" rx="12"/>
+          <text class="a-title a-lg" x="298" y="350">Source</text>
+          <text class="a-sub" x="298" y="368">security knowledge base</text>
+          <rect class="a-stage" x="296" y="384" width="116" height="118" rx="8"/>
+          <text class="a-stage-t" x="354" y="424" text-anchor="middle">Hybrid search</text>
+          <text class="a-sub" x="354" y="446" text-anchor="middle">vectors + BM25</text>
+          <text class="a-sub" x="354" y="462" text-anchor="middle">then a reranker</text>
+          <circle class="a-dot" cx="432" cy="394" r="2.5"/><text class="a-item" x="442" y="398">Code &amp; feature context</text><circle class="a-dot" cx="432" cy="418" r="2.5"/><text class="a-item" x="442" y="422">Vulnerabilities &amp; learnings</text><circle class="a-dot" cx="432" cy="442" r="2.5"/><text class="a-item" x="442" y="446">Business / product context</text><circle class="a-dot" cx="432" cy="466" r="2.5"/><text class="a-item" x="442" y="470">Architecture &amp; trust</text><circle class="a-dot" cx="432" cy="490" r="2.5"/><text class="a-item" x="442" y="494">Attack paths &amp; notes</text>
+
+          <!-- Agent-Smith -->
+          <rect class="a-box a-solid" x="800" y="150" width="280" height="250" rx="12"/>
+          <text class="a-title a-lg" x="820" y="182">Agent-Smith</text>
+          <text class="a-sub" x="820" y="200">offensive execution engine</text>
+          <circle class="a-dot" cx="820" cy="228" r="2.5"/><text class="a-item" x="830" y="232">AI-guided pentesting</text><circle class="a-dot" cx="820" cy="260" r="2.5"/><text class="a-item" x="830" y="264">50+ tools, 35+ skills</text><circle class="a-dot" cx="820" cy="292" r="2.5"/><text class="a-item" x="830" y="296">Runtime testing (staging / test)</text><circle class="a-dot" cx="820" cy="324" r="2.5"/><text class="a-item" x="830" y="328">Evidence &amp; reproducible PoCs</text><circle class="a-dot" cx="820" cy="356" r="2.5"/><text class="a-item" x="830" y="360">Business-logic, context-aware</text>
+
+          <!-- Target -->
+          <rect class="a-box" x="1124" y="225" width="100" height="100" rx="12"/>
+          <text class="a-title" x="1174" y="266" text-anchor="middle">Target</text>
+          <text class="a-title" x="1174" y="284" text-anchor="middle">app</text>
+          <text class="a-sub" x="1174" y="304" text-anchor="middle">staging / test</text>
+
+          <!-- Findings & coverage -->
+          <rect class="a-box" x="800" y="450" width="424" height="92" rx="12"/>
+          <text class="a-title" x="820" y="478">Findings &amp; coverage</text>
+          <line class="a-sep" x1="907" y1="498" x2="907" y2="532"/><line class="a-sep" x1="1012" y1="498" x2="1012" y2="532"/><line class="a-sep" x1="1117" y1="498" x2="1117" y2="532"/>
+          <text class="a-item" x="855" y="512" text-anchor="middle">Validated</text><text class="a-item" x="855" y="527" text-anchor="middle">vulnerabilities</text><text class="a-item" x="960" y="512" text-anchor="middle">Attack</text><text class="a-item" x="960" y="527" text-anchor="middle">coverage</text><text class="a-item" x="1065" y="512" text-anchor="middle">Risk &amp;</text><text class="a-item" x="1065" y="527" text-anchor="middle">prioritization</text><text class="a-item" x="1170" y="512" text-anchor="middle">Trends &amp;</text><text class="a-item" x="1170" y="527" text-anchor="middle">patterns</text>
+
+          <!-- Flows -->
+          <path class="a-flow exec" d="M220 115H276" marker-end="url(#mExec)"/>
+          <path class="a-flow write" d="M480 226V316" marker-end="url(#mWrite)"/>
+          <text class="a-lbl write" x="494" y="258">hypotheses &middot; feature changes</text>
+          <text class="a-lbl write" x="494" y="274">routes &amp; attack surface</text>
+          <text class="a-lbl write" x="494" y="290">trust boundaries</text>
+          <path class="a-flow write" d="M220 420H276" marker-end="url(#mWrite)"/>
+          <path class="a-flow read" d="M640 350H796" marker-end="url(#mRead)"/>
+          <text class="a-lbl read" x="718" y="324" text-anchor="middle">prioritized targets</text>
+          <text class="a-lbl read" x="718" y="340" text-anchor="middle">+ retrieved context</text>
+          <path class="a-flow write" d="M800 385H644" marker-end="url(#mWrite)"/>
+          <text class="a-lbl write" x="718" y="404" text-anchor="middle">validated findings</text>
+          <text class="a-lbl write" x="718" y="420" text-anchor="middle">new attack patterns</text>
+          <path class="a-flow exec" d="M1080 275H1120" marker-end="url(#mExec)"/>
+          <path class="a-flow exec" d="M940 400V446" marker-end="url(#mExec)"/>
+          <path class="a-flow write" d="M800 496H644" marker-end="url(#mWrite)"/>
+          <text class="a-lbl write" x="718" y="486" text-anchor="middle">results &amp; learnings</text>
+
+          <!-- Legend -->
+          <path class="a-flow exec" d="M24 566H60"/><text class="a-sub" x="70" y="570">Execution / test flow</text>
+          <path class="a-flow read" d="M24 588H60"/><text class="a-sub" x="70" y="592">Context retrieval (read)</text>
+          <path class="a-flow write" d="M24 610H60"/><text class="a-sub" x="70" y="614">Write / feedback</text>
+
+          <!-- Loop -->
+          <rect class="a-loop" x="280" y="566" width="944" height="48" rx="24"/>
+          <text class="a-loop-t" x="752" y="586" text-anchor="middle">CONTINUOUS LEARNING LOOP</text>
+          <text class="a-sub" x="752" y="603" text-anchor="middle">PRs &amp; context &rarr; Construct &rarr; Source &rarr; Agent-Smith &rarr; findings &rarr; back to Source</text>
+        </svg>
       </div>
 
+      <p class="arch-note"><b>Where it stands.</b> Agent-Smith already consults, recalls from, and writes back to a bound Source instance, and Construct already replays PoCs in its isolated PR environment. Construct&rsquo;s feed into the knowledge base is the piece being wired up next.</p>
+
       <p class="pipeline-cycle-label">
-        <span>&larr;</span> Learn. Break. Defend. Repeat. <span>&rarr;</span>
+        <span>&larr;</span> Read the change. Remember the context. Prove the exploit. Repeat. <span>&rarr;</span>
       </p>
     </div>
   </div>
@@ -1276,7 +1307,7 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
     <div class="reveal" style="text-align:center;">
       <p class="section-label" style="justify-content:center;">From the Blog</p>
       <h2 class="section-title">Notes from the frontier.</h2>
-      <p class="section-subtitle">Deep dives on offensive tooling, LLM defense, and the methodology behind the ecosystem.</p>
+      <p class="section-subtitle">Deep dives on offensive tooling, AI red teaming, and the methodology behind the ecosystem.</p>
     </div>
     <div class="blog-teaser reveal">
       <a href="blog/mobile-testing.html" class="blog-teaser-card">
@@ -1303,19 +1334,6 @@ canvas.worldgraph{width:100%;flex:1;min-height:150px;display:block}
           </div>
           <h3>Skills, not scripts: how Agent-Smith chains an attack</h3>
           <p>Most &ldquo;AI pentesters&rdquo; are chatbots wrapped around a script library. We took the opposite bet&mdash;teach the methodology, let the model invent the attack.</p>
-        </div>
-      </a>
-      <a href="blog/firewall-you-cant-jailbreak.html" class="blog-teaser-card">
-        <div class="blog-teaser-ic">
-          <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <div>
-          <div class="bt-meta">
-            <span class="bt-date">2026-06-26</span>
-            <span class="bt-tag purple">Defensive</span>
-          </div>
-          <h3>A firewall you can&rsquo;t jailbreak: designing Seraph</h3>
-          <p>Every blocklist eventually fails. Here&rsquo;s why we built Seraph on a positive-security allow-list instead&mdash;and what it means to be immune to prompt injection by design.</p>
         </div>
       </a>
       <a href="blog/index.html" class="blog-teaser-all">Read all articles
